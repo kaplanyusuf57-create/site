@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Baza & Yatak Koleksiyonu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* --- TEMEL AYARLAR --- */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #111;
+            --gold: #D4AF37;
+            --green: #25d366;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #fff;
+            height: 100vh;
+            color: #333;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .nav-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #eee;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-title {
+            margin-left: auto;
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        /* SWIPER AYARLARI */
+        .swiper-catalog {
+            width: 100%;
+            height: 100%;
+            padding-top: 60px;
+        }
+
+        .swiper-slide {
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            /* Mobilde alt alta */
+            overflow: hidden;
+        }
+
+        /* --- ÜRÜN YERLEŞİMİ (FLEXBOX İLE DÜZELTİLDİ) --- */
+        .p-image-area {
+            height: 40%;
+            width: 100%;
+            background: #eee;
+            position: relative;
+        }
+
+        .p-image-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .p-info-area {
+            height: 60%;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            /* İçerik uzunsa kaydır */
+            padding-bottom: 100px;
+            /* Sepet butonu payı */
+            background: #fff;
+        }
+
+        .p-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-bottom: 3px solid var(--gold);
+            display: inline-block;
+            margin-bottom: 5px;
+            color: #000;
+        }
+
+        .p-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        /* LİSTE TASARIMI */
+        .select-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .size-badge {
+            font-weight: 700;
+            width: 80px;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .price-action {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .price-tag {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #111;
+        }
+
+        .add-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.2s;
+        }
+
+        .add-btn:hover {
+            background: #333;
+        }
+
+        .add-btn.added {
+            background: var(--green);
+        }
+
+        /* ÇİFT BUTONLAR (YATAKLAR) */
+        .bed-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .bed-btn-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bed-label {
+            font-size: 0.7rem;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+            width: 30px;
+            text-align: right;
+        }
+
+        /* BAŞLIKLAR */
+        .headboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .headboard-item {
+            text-align: center;
+            background: #fafafa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            transition: 0.2s;
+        }
+
+        .headboard-item:hover {
+            border-color: var(--gold);
+        }
+
+        .headboard-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .headboard-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* SEPET BAR */
+        #floating-cart {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(150px);
+            background: var(--green);
+            color: white;
+            width: 90%;
+            max-width: 400px;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        #floating-cart.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .cart-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-count {
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .cart-total {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .cart-icon {
+            background: white;
+            color: var(--green);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        /* --- MASAÜSTÜ DÜZENİ (PC İÇİN KRİTİK AYARLAR) --- */
+        @media (min-width: 768px) {
+            .swiper-catalog {
+                max-width: 1300px;
+                margin: 0 auto;
+                border-left: 1px solid #eee;
+                border-right: 1px solid #eee;
+                box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+            }
+
+            .swiper-slide {
+                flex-direction: row;
+                /* Yan Yana yap */
+            }
+
+            .p-image-area {
+                width: 55%;
+                height: 100%;
+                order: 1;
+                /* Sol taraf */
+            }
+
+            .p-info-area {
+                width: 45%;
+                height: 100%;
+                padding: 50px;
+                order: 2;
+                /* Sağ taraf */
+            }
+
+            .headboard-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .nav-header {
+                max-width: 1300px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-header">
+        <a href="index.html" class="back-btn"><i class="fas fa-chevron-left"></i> MENÜYE DÖN</a>
+        <div class="page-title">BAZA & YATAK</div>
+    </div>
+
+    <div id="floating-cart" onclick="sendToWhatsapp()">
+        <div class="cart-info">
+            <span class="cart-count" id="cart-count">0 Ürün</span>
+            <span class="cart-total" id="cart-total">Toplam: 0 TL</span>
+        </div>
+        <div class="cart-icon"><i class="fab fa-whatsapp"></i></div>
+    </div>
+
+    <div class="swiper swiper-catalog">
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/duz_baza.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Düz Baza Seti</div>
+                    <div class="p-desc">Sade, sandıklı ve kullanışlı baza seti.</div>
+                    <div id="list-duz-baza"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/kapitone_luks.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Kapitone Lüks</div>
+                    <div class="p-desc">Premium kapitone işçilikli set.</div>
+                    <div id="list-kapitone-luks"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/kare_kapitone.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Kare Kapitone</div>
+                    <div class="p-desc">Modern kare dikişli set.</div>
+                    <div id="list-kare-kapitone"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/havuzlu_bubble.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Havuzlu Bubble</div>
+                    <div class="p-desc">Havuzlu sistem yatak kaymasını önler.</div>
+                    <div id="list-havuzlu-bubble"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/havuzlu_chester.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Havuzlu Chester</div>
+                    <div class="p-desc">Klasik chester ve havuzlu baza uyumu.</div>
+                    <div id="list-havuzlu-chester"></div>
+                </div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/yatak_tavsan1.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Tavşan Tüyü Pedsiz</div>
+                    <div class="p-desc">Dengeli konfor, özel dokulu.</div>
+                    <div id="list-tavsan-pedsiz"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/yatak_tavsan2.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Tavşan Tüyü Pedli</div>
+                    <div class="p-desc">Ekstra yumuşak ped ile yüksek konfor.</div>
+                    <div id="list-tavsan-pedli"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/yatak_afrika.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Afrika Lüks</div>
+                    <div class="p-desc">Çocuk gelişim serisi (Ecem).</div>
+                    <div id="list-afrika-luks"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/yatak_asya.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Asya Lüks</div>
+                    <div class="p-desc">Düz yapı, tam destek (Tutku).</div>
+                    <div id="list-asya-luks"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/yatak_avrupa.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Avrupa Jumbo</div>
+                    <div class="p-desc">Kalın pedli üst yüzey.</div>
+                    <div id="list-avrupa-jumbo"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="p-image-area"><img src="img/yatak_antartika.jpg"></div>
+                <div class="p-info-area">
+                    <div class="p-title">Antartika Pedli</div>
+                    <div class="p-desc">Serinletici özel kumaş.</div>
+                    <div id="list-antartika-pedli"></div>
+                </div>
+            </div>
+
+            <div class="swiper-slide">
+                <div class="p-info-area"
+                    style="height:100% !important; width:100% !important; justify-content:flex-start;">
+                    <div style="text-align:center; margin-bottom:30px; font-weight:800; font-size:1.8rem; color:#111;">
+                        BAŞLIK MODELLERİ</div>
+                    <div class="headboard-grid" id="headboard-container"></div>
+                    <div style="margin-top:40px; text-align:center; color:#999; font-size:0.9rem;">Listenin Sonu</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // --- VERİ TABANI ---
+        const sets = [
+            { id: "list-duz-baza", name: "Düz Baza Seti", prices: [9750, 11000, 12000, 14000, 15000] },
+            { id: "list-kapitone-luks", name: "Kapitone Lüks", prices: [11000, 12000, 14000, 15500, 16000] },
+            { id: "list-kare-kapitone", name: "Kare Kapitone", prices: [11000, 12000, 14000, 15500, 16000] },
+            { id: "list-havuzlu-bubble", name: "Havuzlu Bubble", prices: [15000, 16500, 18500, 23000, 23500] },
+            { id: "list-havuzlu-chester", name: "Havuzlu Chester", prices: [15000, 16500, 18500, 23000, 23500] }
+        ];
+
+        const beds = [
+            { id: "list-tavsan-pedsiz", name: "Tavşan Tüyü Pedsiz", pre: [5000, 5250, 6500, 7400, 8000], eco: [4100, 4200, 5000, 5500, 6000] },
+            { id: "list-tavsan-pedli", name: "Tavşan Tüyü Pedli", pre: [5490, 5600, 7000, 8500, 9000], eco: [4400, 4500, 5400, 6000, 6500] },
+            { id: "list-afrika-luks", name: "Afrika Lüks", pre: [3500, 3650, 4500, 5000, 5500], eco: [2800, 2900, 3750, 4250, 4250] },
+            { id: "list-asya-luks", name: "Asya Lüks", pre: [4050, 4250, 5050, 6000, 6000], eco: [3200, 3300, 4000, 4500, 4500] },
+            { id: "list-avrupa-jumbo", name: "Avrupa Jumbo", pre: [4500, 4700, 5500, 6500, 7000], eco: [4000, 4100, 4600, 5100, 5600] },
+            { id: "list-antartika-pedli", name: "Antartika Pedli", pre: [4750, 4950, 5750, 6750, 7250], eco: [4250, 4350, 4850, 5350, 5850] }
+        ];
+
+        const sizes = ["90x190", "100x200", "120x200", "150x200", "160x200"];
+        const headboards = ["SAFIR_GNY_01", "KULAKLI_SAFIR_GNY_02", "SOLEN_GNY_03", "KING_GNY_04", "INCI_GNY_05", "MODERN_KULAK_GNY_06", "TREND_GNY_07", "AVANGART_GNY_08", "PIRLANTA_GNY_09", "BOHEM_GNY_10", "KUKA_GNY_11", "KUVARS_GNY_12", "KUP_GNY_13", "TUGLA_GNY_14", "MERIDYEN_GNY_15", "PAPATYA_GNY_16"];
+        let cart = [];
+
+        function fmt(p) { return p.toLocaleString('tr-TR') + ' ₺'; }
+
+        // --- RENDER FONKSİYONLARI ---
+        // Setler
+        sets.forEach(s => {
+            const el = document.getElementById(s.id);
+            if (el) {
+                s.prices.forEach((p, i) => {
+                    el.innerHTML += `
+                    <div class="select-row">
+                        <div class="size-badge">${sizes[i]}</div>
+                        <div class="price-action">
+                            <span class="price-tag">${fmt(p)}</span>
+                            <button class="add-btn" onclick="toggleCart(this,'${s.name}','${sizes[i]}',${p},'Set')">
+                                <i class="fas fa-plus"></i> Ekle
+                            </button>
+                        </div>
+                    </div>`;
+                });
+            }
+        });
+
+        // Yataklar
+        beds.forEach(b => {
+            const el = document.getElementById(b.id);
+            if (el) {
+                sizes.forEach((s, i) => {
+                    el.innerHTML += `
+                    <div class="select-row">
+                        <div class="size-badge">${s}</div>
+                        <div class="bed-actions">
+                            <div class="bed-btn-row">
+                                <span class="bed-label">PRE</span>
+                                <span class="price-tag">${fmt(b.pre[i])}</span>
+                                <button class="add-btn" onclick="toggleCart(this,'${b.name}','${s}',${b.pre[i]},'Yatak-Pre')">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="bed-btn-row">
+                                <span class="bed-label">EKO</span>
+                                <span class="price-tag">${fmt(b.eco[i])}</span>
+                                <button class="add-btn" onclick="toggleCart(this,'${b.name}','${s}',${b.eco[i]},'Yatak-Eko')">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+            }
+        });
+
+        // Başlıklar
+        const hbCon = document.getElementById('headboard-container');
+        if (hbCon) {
+            headboards.forEach(h => {
+                const n = h.replace(/_/g, " ").replace("GNY", "").trim();
+                hbCon.innerHTML += `
+                <div class="headboard-item">
+                    <img src="img/${h}.jpeg">
+                    <div class="headboard-name">${n}</div>
+                    <button class="add-btn" style="width:100%;justify-content:center;margin-top:5px" onclick="toggleCart(this,'${n}','Standart',0,'Başlık')">
+                        <i class="fas fa-plus"></i> Ekle
+                    </button>
+                </div>`;
+            });
+        }
+
+        // --- SEPET MANTIĞI ---
+        function toggleCart(btn, name, size, price, type) {
+            const idx = cart.findIndex(x => x.name === name && x.size === size && x.type === type);
+            if (idx > -1) {
+                cart.splice(idx, 1);
+                btn.classList.remove('added');
+                btn.innerHTML = btn.parentElement.classList.contains('bed-btn-row') ? '<i class="fas fa-plus"></i>' : '<i class="fas fa-plus"></i> Ekle';
+            } else {
+                cart.push({ name, size, price, type });
+                btn.classList.add('added');
+                btn.innerHTML = btn.parentElement.classList.contains('bed-btn-row') ? '<i class="fas fa-check"></i>' : '<i class="fas fa-check"></i> Eklendi';
+            }
+            updateCart();
+        }
+
+        function updateCart() {
+            const el = document.getElementById('floating-cart');
+            if (cart.length > 0) {
+                el.classList.add('visible');
+                document.getElementById('cart-count').innerText = cart.length + " Ürün";
+                let t = cart.reduce((a, b) => a + b.price, 0);
+                document.getElementById('cart-total').innerText = "Toplam: " + fmt(t);
+            } else {
+                el.classList.remove('visible');
+            }
+        }
+
+        function sendToWhatsapp() {
+            let msg = "Merhaba Güney Mobilya, katalogdan şunları seçtim:\n\n";
+            let t = 0;
+            cart.forEach(i => {
+                msg += `👉 ${i.name} (${i.type})\n   Ölçü: ${i.size}`;
+                if (i.price > 0) { msg += ` - ${fmt(i.price)}\n`; t += i.price; }
+                else { msg += ` - Fiyat Sorulacak\n`; }
+            });
+            if (t > 0) msg += `\n💰 *Toplam Tutar: ${fmt(t)}*`;
+            msg += `\n\nÖdeme ve teslimat bilgisi alabilir miyim?`;
+            window.open("https://wa.me/905314582416?text=" + encodeURIComponent(msg), "_blank");
+        }
+
+        // SWIPER INIT (YATAY + PC İÇİN GRAB CURSOR)
+        new Swiper(".swiper-catalog", {
+            direction: "horizontal",
+            mousewheel: true,
+            grabCursor: true
+        });
+    </script>
+</body>
+
+</html>

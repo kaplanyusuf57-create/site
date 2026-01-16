@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Güney Mobilya | Ana Sayfa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* --- TEMEL AYARLAR --- */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #111;
+            height: 100vh;
+            color: #333;
+            overflow: hidden;
+        }
+
+        /* SWIPER AYARLARI (YATAY) */
+        .swiper-main {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            background: #fff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- 1. SLAYT: KAPAK --- */
+        .cover-slide {
+            background: #111;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .cover-logo {
+            width: 70%;
+            max-width: 350px;
+            margin-bottom: 30px;
+        }
+
+        .swipe-hint {
+            position: absolute;
+            bottom: 40px;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .arrow-right {
+            font-size: 1.5rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* --- 2. SLAYT: MENÜ (BANNER + KUTULAR) --- */
+        .menu-slide {
+            background: #f4f4f4;
+            display: block !important;
+            overflow-y: auto;
+            /* İçerik taşarsa kaydırma olsun */
+        }
+
+        /* --- BANNER ALANI (DÜZELTİLDİ) --- */
+        .banner-wrapper {
+            width: 100%;
+            /* Mobilde 4:5 oranı (1080x1350 görsel için ideal) */
+            aspect-ratio: 4/5;
+            /* Ekranı komple kaplamasın diye maksimum yükseklik sınırı */
+            max-height: 55vh;
+            position: relative;
+            background: #000;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Görseli kutuya tam yay */
+            object-position: top center;
+            /* Görselin üst kısmını öncelikli göster */
+        }
+
+        /* Kategori Grid Alanı */
+        .grid-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 20px 0;
+            color: #111;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* Mobilde yan yana 2 kutu */
+            gap: 15px;
+        }
+
+        /* Kutu Tasarımı */
+        .cat-box {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            position: relative;
+            aspect-ratio: 1 / 1;
+            /* Kare kutular */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cat-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .cat-box:active {
+            transform: scale(0.95);
+        }
+
+        .cat-image {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+        }
+
+        .cat-text {
+            height: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            background: white;
+            padding: 5px;
+            text-transform: uppercase;
+        }
+
+        /* --- MASAÜSTÜ ÖZEL AYARLARI --- */
+        @media (min-width: 768px) {
+
+            /* PC'de Banner İnce Uzun Olsun (1920x700 oranı) */
+            .banner-wrapper {
+                aspect-ratio: 1920/700;
+                max-height: 500px;
+                /* Çok devasa olmasın */
+            }
+
+            .cat-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 30px;
+            }
+
+            .cat-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="swiper swiper-main">
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide cover-slide">
+                <img src="img/logo.png" alt="Güney Mobilya" class="cover-logo">
+                <h2 style="font-weight: 300; letter-spacing: 4px; font-size: 1.4rem;">2026 KOLEKSİYONU</h2>
+
+                <div class="swipe-hint">
+                    MENÜ İÇİN KAYDIRIN <br>
+                    <i class="fas fa-chevron-right arrow-right"></i>
+                </div>
+            </div>
+
+            <div class="swiper-slide menu-slide">
+
+                <div class="banner-wrapper">
+                    <picture>
+                        <source media="(min-width: 768px)" srcset="img/firsat1-pc.jpg">
+                        <img src="img/firsat1-mobil.jpg" class="banner-img" alt="Fırsat Ürünü">
+                    </picture>
+                </div>
+
+                <div class="grid-container">
+                    <div class="section-header">ÜRÜN GRUPLARI</div>
+
+                    <div class="cat-grid">
+
+                        <a href="baza-yatak.html" class="cat-box">
+                            <img src="img/havuzlu_bubble.jpg" class="cat-image" alt="Baza Yatak">
+                            <div class="cat-text">BAZA & YATAK</div>
+                        </a>
+
+                        <a href="genc-odasi.html" class="cat-box">
+                            <img src="img/genc-odasi/nova-4.jpg" class="cat-image" alt="Genç Odası"
+                                onerror="this.src='img/genc_odasi_placeholder.jpg'">
+                            <div class="cat-text">GENÇ ODASI</div>
+                        </a>
+
+                        <a href="#" onclick="alert('Yakında Sizlerle!')" class="cat-box">
+                            <img src="img/yatak_odasi_placeholder.jpg"
+                                onerror="this.src='https://placehold.co/400x400/eee/999?text=Yatak+Odasi'"
+                                class="cat-image">
+                            <div class="cat-text">YATAK ODASI</div>
+                        </a>
+
+                        <a href="#" onclick="alert('Yakında Sizlerle!')" class="cat-box">
+                            <img src="img/koltuk_placeholder.jpg"
+                                onerror="this.src='https://placehold.co/400x400/eee/999?text=Oturma+Grubu'"
+                                class="cat-image">
+                            <div class="cat-text">OTURMA GRUBU</div>
+                        </a>
+                    </div>
+
+                    <div
+                        style="text-align:center; margin-top:50px; color:#aaa; font-size:0.8rem; padding-bottom: 20px;">
+                        &copy; 2026 GÜNEY MOBİLYA<br>
+                        Siteler / ANKARA
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // YATAY GEÇİŞ AYARI
+        var mainSwiper = new Swiper(".swiper-main", {
+            direction: "horizontal", // Kitap gibi yana kayar
+            effect: "slide",
+            speed: 600,
+            grabCursor: true
+        });
+    </script>
+</body>
+
+</html>

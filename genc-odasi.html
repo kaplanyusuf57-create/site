@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Genç Odası Koleksiyonu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* GENEL AYARLAR */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #fff;
+            height: 100vh;
+            color: #333;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        .nav-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #eee;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-title {
+            margin-left: auto;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #111;
+            letter-spacing: 1px;
+        }
+
+        /* ANA SWIPER */
+        .swiper-main {
+            width: 100%;
+            height: 100%;
+            padding-top: 60px;
+        }
+
+        .slide-product {
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* GALERİ */
+        .gallery-container {
+            width: 100%;
+            height: 50%;
+            background: #f4f4f4;
+            position: relative;
+        }
+
+        /* Yükseklik mobilde biraz kısıldı, bilgiye yer açıldı */
+        .swiper-gallery {
+            width: 100%;
+            height: 100%;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #D4AF37 !important;
+        }
+
+        /* BİLGİ ALANI - DOLU GÖRÜNÜM İÇİN AYARLAR */
+        .info-area {
+            height: 50%;
+            padding: 20px 25px;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            position: relative;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+            overflow-y: auto;
+            /* İçerik çok olursa kaydırabilsin */
+        }
+
+        .product-header {
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #111;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 8px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* ÖZELLİKLER */
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-content: flex-start;
+            flex: 1;
+            /* Boşluğu doldurması için */
+        }
+
+        .feature-tag {
+            background: #fdfdfd;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #444;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .feature-tag i {
+            color: #D4AF37;
+            font-size: 0.7rem;
+        }
+
+        /* FİYAT VE BUTON */
+        .price-wrapper {
+            margin-top: auto;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 15px;
+        }
+
+        .price-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price-label {
+            font-size: 0.7rem;
+            color: #999;
+            text-transform: uppercase;
+            display: block;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .total-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #D4AF37;
+        }
+
+        /* Yeni Eklenen Not Kısmı */
+        .price-note {
+            font-size: 0.7rem;
+            color: #e74c3c;
+            margin-top: 5px;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .buy-btn {
+            background: #111;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .buy-btn:active {
+            transform: scale(0.95);
+        }
+
+        @media (min-width: 768px) {
+            .swiper-main {
+                max-width: 1200px;
+                margin: 0 auto;
+                border-left: 1px solid #eee;
+                border-right: 1px solid #eee;
+            }
+
+            .slide-product {
+                flex-direction: row;
+            }
+
+            .gallery-container {
+                width: 60%;
+                height: 100%;
+            }
+
+            .info-area {
+                width: 40%;
+                height: 100%;
+                justify-content: center;
+                padding: 50px;
+            }
+
+            .features {
+                margin: 25px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-header">
+        <a href="index.html" class="back-btn"><i class="fas fa-chevron-left"></i> MENÜYE DÖN</a>
+        <div class="page-title">GENÇ ODALARI</div>
+    </div>
+
+    <div class="swiper swiper-main">
+        <div class="swiper-wrapper" id="products-container">
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // ==========================================
+        // 🛠️ AYAR KISMI: DOLU DOLU İÇERİK
+        // ==========================================
+        const models = [
+            {
+                id: 'karamel',
+                name: 'KARAMEL',
+                imageCount: 6,
+                price: '40.000 ₺',
+                desc: 'Doğal ahşap dokusunun sıcaklığı ve modern tasarımın eşsiz uyumu. Geniş depolama alanları ile odanızda maksimum düzen sağlar.',
+                features: [
+                    '4 Kapaklı Aynalı Dolap',
+                    'Ergonomik Çalışma Masası',
+                    'Kitaplık Modülü',
+                    'Başlıklı Karyola (90x190)',
+                    'Frenli Kapak Sistemi',
+                    'Çizilmez Yüzey'
+                ]
+            },
+            {
+                id: 'isik',
+                name: 'IŞIK',
+                imageCount: 5,
+                price: '40.000 ₺',
+                desc: 'Beyazın ferahlatıcı etkisiyle odanızı aydınlatın. Minimalist çizgiler ve parlak yüzey detaylarıyla zamansız bir şıklık.',
+                features: [
+                    'Membran Kapak Dolap',
+                    'LED Işıklı Masa',
+                    'Bazalı Karyola',
+                    'Şifonyer & Ayna',
+                    'Geniş İç Hacim',
+                    'Tam Açılır Çekmeceler'
+                ]
+            },
+            {
+                id: 'nova',
+                name: 'NOVA',
+                imageCount: 7,
+                price: '40.000 ₺',
+                desc: 'Gençlerin enerjisine uygun, antrasit ve dinamik renklerin güçlü kombinasyonu. Teknoloji dostu çalışma alanı.',
+                features: [
+                    'Sürgülü Gardırop',
+                    'Oyuncu Tipi Masa',
+                    'Metal Ayaklı Komodin',
+                    'Kumaş Başlıklı Baza',
+                    'USB Girişli Modül',
+                    'Modern Tasarım'
+                ]
+            },
+            {
+                id: 'asil',
+                name: 'ASİL',
+                imageCount: 6,
+                price: '40.000 ₺',
+                desc: 'Country tarzın modern yorumu. Zarif işçilik detayları, özel kulp tasarımları ve premium malzeme kalitesi.',
+                features: [
+                    '4 Kapılı Country Dolap',
+                    'Makyaj & Çalışma Masası',
+                    'Kapitoneli Başlık',
+                    'Lükens Ayak Yapısı',
+                    'MDF Profil Detayları',
+                    'E1 Kalite Malzeme'
+                ]
+            }
+        ];
+
+        // ==========================================
+        // ⚙️ OTOMATİK OLUŞTURUCU
+        // ==========================================
+        const container = document.getElementById('products-container');
+
+        models.forEach(model => {
+            // 1. Resimleri Döngüyle Oluştur
+            let slidesHTML = '';
+            for (let i = 1; i <= model.imageCount; i++) {
+                slidesHTML += `
+                    <div class="swiper-slide">
+                        <img src="img/genc-odasi/${model.id}-${i}.jpg" class="gallery-img" 
+                        onerror="this.src='https://placehold.co/600x800?text=Resim+Yok+${i}'">
+                    </div>`;
+            }
+
+            // 2. Özellikleri Oluştur (İkonlu)
+            let featuresHTML = model.features.map(f => `<span class="feature-tag"><i class="fas fa-check"></i> ${f}</span>`).join('');
+
+            // 3. Ana Slaytı Oluştur
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'swiper-slide slide-product';
+            slideDiv.innerHTML = `
+                <div class="gallery-container">
+                    <div class="swiper swiper-gallery-${model.id}" style="width:100%; height:100%">
+                        <div class="swiper-wrapper">
+                            ${slidesHTML}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+                <div class="info-area">
+                    <div class="product-header">
+                        <h2 class="product-name">${model.name}</h2>
+                        <p class="product-desc">${model.desc}</p>
+                        <div class="features">${featuresHTML}</div>
+                    </div>
+                    
+                    <div class="price-wrapper">
+                        <div class="price-box">
+                            <div>
+                                <span class="price-label">SET FİYATI (PEŞİN)</span>
+                                <div class="total-price">${model.price}</div>
+                            </div>
+                            <a href="#" onclick="orderWhatsapp('${model.name}', '${model.price}')" class="buy-btn">
+                                <i class="fab fa-whatsapp"></i> SİPARİŞ VER
+                            </a>
+                        </div>
+                        <div class="price-note">* Set fiyatıdır. Tekli alımlarda parça fiyatları değişmektedir.</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(slideDiv);
+        });
+
+        // 4. Son Slayt (Başa Dön)
+        container.innerHTML += `
+            <div class="swiper-slide" style="justify-content:center; align-items:center; text-align:center;">
+                <h3 style="color:#999; font-weight:400;">Diğer modellerimiz için lütfen iletişime Geçiniz.</h3>
+                <button onclick="mainSwiper.slideTo(0)" style="margin-top:20px; padding:10px 30px; border:1px solid #ccc; background:white; cursor:pointer; border-radius:30px;">
+                    BAŞA DÖN
+                </button>
+            </div>
+        `;
+
+        // ==========================================
+        // 🚀 SWIPER BAŞLATMA
+        // ==========================================
+
+        var mainSwiper = new Swiper(".swiper-main", {
+            direction: "horizontal",
+            effect: "slide",
+            speed: 600,
+            grabCursor: true
+        });
+
+        models.forEach(model => {
+            new Swiper(`.swiper-gallery-${model.id}`, {
+                nested: true,
+                direction: "horizontal",
+                pagination: { el: ".swiper-pagination", clickable: true },
+                loop: true
+            });
+        });
+
+        function orderWhatsapp(urun, fiyat) {
+            var tel = "905314582416";
+            var msg = "Merhaba, *" + urun + "* genç odası takımını beğendim.\n" +
+                "Görüntülenen Set Fiyatı: *" + fiyat + "*\n\n" +
+                "Bu takım için teslimat süresi ve detaylı parça fiyatları hakkında bilgi alabilir miyim?";
+            window.open("https://wa.me/" + tel + "?text=" + encodeURIComponent(msg), "_blank");
+        }
+    </script>
+</body>
+
+</html>
