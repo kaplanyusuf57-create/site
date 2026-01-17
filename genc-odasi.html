@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
-        /* --- GENEL AYARLAR --- */
+        /* GENEL AYARLAR */
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -66,24 +66,24 @@
             padding-top: 60px;
         }
 
-        /* --- MOBİL İÇİN VARSAYILAN AYARLAR (ALT ALTA) --- */
+        /* MOBİL İÇİN HİBRİT YAPI */
         .slide-product {
             background: #fff;
             display: block;
-            /* Mobilde alt alta olması için block */
+            /* İçerik aşağı kaysın diye Block */
             overflow-y: auto;
-            /* Sayfa aşağı kaysın */
             height: 100%;
             padding-bottom: 80px;
-            /* Alttaki buton için boşluk */
+            /* Buton payı */
         }
 
-        /* Galeri (Mobil) */
+        /* --- GALERİ DÜZELTMESİ (GÖRSELLER TAM GÖRÜNSÜN) --- */
         .gallery-container {
             width: 100%;
-            aspect-ratio: 4/3;
-            /* Mobilde görsel biraz karemsi olsun */
-            background: #f4f4f4;
+            height: 50vh;
+            /* Ekranın yarısı görsel olsun */
+            background: #f9f9f9;
+            /* Görsel boşlukları için hafif gri fon */
             position: relative;
         }
 
@@ -95,14 +95,52 @@
         .gallery-img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            /* GÖRSELİ KESME, SIĞDIR! */
+            mix-blend-mode: multiply;
+            /* Beyaz arka planı kaynaştır (varsa) */
         }
 
         .swiper-pagination-bullet-active {
             background: #D4AF37 !important;
         }
 
-        /* Bilgi Alanı (Mobil) */
+        /* GALERİ OKLARI (YENİ) */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #D4AF37 !important;
+            /* Altın rengi oklar */
+            transform: scale(0.6);
+            /* Biraz küçült */
+            font-weight: 800;
+        }
+
+        /* SAYFA GEÇİŞ OKU (YENİ) */
+        .next-page-hint {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            color: rgba(0, 0, 0, 0.1);
+            font-size: 2rem;
+            animation: bounceRight 1.5s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes bounceRight {
+
+            0%,
+            100% {
+                transform: translate(0, -50%);
+            }
+
+            50% {
+                transform: translate(5px, -50%);
+            }
+        }
+
+        /* BİLGİ ALANI */
         .info-area {
             padding: 20px 25px;
             background: #fff;
@@ -131,6 +169,7 @@
             font-weight: 400;
         }
 
+        /* Özellikler */
         .features {
             list-style: none;
             padding: 0;
@@ -158,7 +197,7 @@
             font-size: 0.7rem;
         }
 
-        /* Fiyat ve Buton (Mobil) */
+        /* FİYAT KUTUSU */
         .price-wrapper {
             background: #fafafa;
             border-radius: 10px;
@@ -194,6 +233,7 @@
             margin-bottom: 20px;
         }
 
+        /* BUTON */
         .buy-btn {
             background: #25d366;
             color: white;
@@ -215,49 +255,33 @@
             transform: scale(0.95);
         }
 
-
-        /* --- MASAÜSTÜ (PC) İÇİN DÜZELTME (YAN YANA) --- */
+        /* MASAÜSTÜ AYARLARI */
         @media (min-width: 768px) {
-            .swiper-main {
-                max-width: 1200px;
-                margin: 0 auto;
-                border-left: 1px solid #eee;
-                border-right: 1px solid #eee;
-            }
-
-            /* Block yerine Flex kullan, yan yana diz */
             .slide-product {
                 display: flex !important;
                 flex-direction: row;
                 overflow: hidden;
-                /* PC'de sayfa kaymasın, sığsın */
-                padding-bottom: 0;
             }
 
-            /* Sol Taraf: Galeri */
             .gallery-container {
                 width: 60%;
                 height: 100%;
                 aspect-ratio: auto;
-                /* Kare zorunluluğunu kaldır */
+                background: #f4f4f4;
             }
 
-            /* Sağ Taraf: Bilgi */
             .info-area {
                 width: 40%;
                 height: 100%;
                 overflow-y: auto;
-                /* Sadece yazı alanı kaysın */
-                padding: 40px;
-                display: flex;
-                flex-direction: column;
+                padding: 50px;
             }
 
-            .price-wrapper {
-                margin-top: auto;
+            .next-page-hint {
+                display: none;
             }
 
-            /* Fiyatı en alta it */
+            /* PC'de oka gerek yok */
         }
     </style>
 </head>
@@ -277,7 +301,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // ==========================================
-        // 🛠️ MODEL VERİLERİ (BURAYI DÜZENLE)
+        // 🛠️ AYAR KISMI
         // ==========================================
         const models = [
             {
@@ -285,7 +309,7 @@
                 name: 'KARAMEL',
                 imageCount: 6,
                 price: '40.000 ₺',
-                desc: 'Doğal ahşap dokusu ve modern tasarım.',
+                desc: 'Doğal ahşap dokusunun sıcaklığı ve modern tasarımın eşsiz uyumu. Geniş depolama alanları ile odanızda maksimum düzen sağlar.',
                 features: ['Aynalı Dolap', 'Çalışma Masası', 'Kitaplık', 'Karyola']
             },
             {
@@ -293,7 +317,7 @@
                 name: 'IŞIK',
                 imageCount: 5,
                 price: '40.000 ₺',
-                desc: 'Beyazın ferahlatıcı etkisi.',
+                desc: 'Beyazın ferahlatıcı etkisiyle odanızı aydınlatın. Minimalist çizgiler ve parlak yüzey detaylarıyla zamansız bir şıklık.',
                 features: ['Membran Kapak', 'LED Işıklı Masa', 'Bazalı Karyola']
             },
             {
@@ -301,15 +325,15 @@
                 name: 'NOVA',
                 imageCount: 7,
                 price: '40.000 ₺',
-                desc: 'Antrasit ve dinamik renkler.',
-                features: ['Sürgülü Dolap', 'Oyuncu Masası', 'USB Girişli']
+                desc: 'Gençlerin enerjisine uygun, antrasit ve dinamik renklerin güçlü kombinasyonu. Teknoloji dostu çalışma alanı.',
+                features: ['Sürgülü Gardırop', 'Oyuncu Tipi Masa', 'USB Girişli Modül']
             },
             {
                 id: 'asil',
                 name: 'ASİL',
                 imageCount: 6,
                 price: '40.000 ₺',
-                desc: 'Country tarzın modern yorumu.',
+                desc: 'Country tarzın modern yorumu. Zarif işçilik detayları, özel kulp tasarımları ve premium malzeme kalitesi.',
                 features: ['4 Kapılı Dolap', 'Makyaj Masası', 'Lükens Ayak']
             }
         ];
@@ -320,20 +344,32 @@
         const container = document.getElementById('products-container');
 
         models.forEach(model => {
+            // 1. Resimler
             let slidesHTML = '';
             for (let i = 1; i <= model.imageCount; i++) {
-                slidesHTML += `<div class="swiper-slide"><img src="img/genc-odasi/${model.id}-${i}.jpg" class="gallery-img" onerror="this.src='https://placehold.co/600x800?text=Resim+Yok'"></div>`;
+                slidesHTML += `
+                    <div class="swiper-slide">
+                        <img src="img/genc-odasi/${model.id}-${i}.jpg" class="gallery-img" 
+                        onerror="this.src='https://placehold.co/600x800?text=Resim+Yok+${i}'">
+                    </div>`;
             }
+
+            // 2. Özellikler
             let featuresHTML = model.features.map(f => `<span class="feature-tag"><i class="fas fa-check"></i> ${f}</span>`).join('');
 
+            // 3. HTML Yapısı
             container.innerHTML += `
                 <div class="swiper-slide slide-product">
                     <div class="gallery-container">
                         <div class="swiper swiper-gallery-${model.id}" style="width:100%; height:100%">
                             <div class="swiper-wrapper">${slidesHTML}</div>
                             <div class="swiper-pagination"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
                         </div>
+                        <div class="next-page-hint"><i class="fas fa-chevron-right"></i></div>
                     </div>
+                    
                     <div class="info-area">
                         <div class="product-header">
                             <h2 class="product-name">${model.name}</h2>
@@ -347,25 +383,50 @@
                                 <div class="total-price">${model.price}</div>
                             </div>
                             <a href="#" onclick="orderWhatsapp('${model.name}', '${model.price}')" class="buy-btn">
-                                <i class="fab fa-whatsapp"></i> SİPARİŞ
+                                <i class="fab fa-whatsapp"></i> SİPARİŞ VER
                             </a>
                         </div>
-                        <span class="price-note">* Set fiyatıdır. Tekli alımlarda fiyatlar değişmektedir.</span>
+                        <span class="price-note">* Set fiyatıdır. Tekli alımlarda parça fiyatları değişmektedir.</span>
                     </div>
                 </div>`;
         });
 
-        // SON SLAYT
-        container.innerHTML += `<div class="swiper-slide" style="display:flex !important; justify-content:center; align-items:center; text-align:center;"><h3 style="color:#999;">Başka model bulunmamaktadır.</h3><button onclick="mainSwiper.slideTo(0)" style="margin-top:20px; padding:10px 30px; border:1px solid #ccc; background:white; cursor:pointer; border-radius:30px;">BAŞA DÖN</button></div>`;
+        // 4. Son Slayt
+        container.innerHTML += `
+            <div class="swiper-slide" style="display:flex !important; justify-content:center; align-items:center; text-align:center;">
+                <h3 style="color:#999; font-weight:400;">Başka model bulunmamaktadır.</h3>
+                <button onclick="mainSwiper.slideTo(0)" style="margin-top:20px; padding:10px 30px; border:1px solid #ccc; background:white; cursor:pointer; border-radius:30px;">
+                    BAŞA DÖN
+                </button>
+            </div>
+        `;
 
-        var mainSwiper = new Swiper(".swiper-main", { direction: "horizontal", effect: "slide", speed: 600 });
+        // ==========================================
+        // 🚀 SWIPER BAŞLATMA
+        // ==========================================
+        var mainSwiper = new Swiper(".swiper-main", {
+            direction: "horizontal",
+            effect: "slide",
+            speed: 600,
+            grabCursor: true
+        });
 
         models.forEach(model => {
-            new Swiper(`.swiper-gallery-${model.id}`, { nested: true, direction: "horizontal", pagination: { clickable: true }, loop: true });
+            new Swiper(`.swiper-gallery-${model.id}`, {
+                nested: true,
+                direction: "horizontal",
+                pagination: { el: ".swiper-pagination", clickable: true },
+                navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }, // OKLAR AKTİF
+                loop: true
+            });
         });
 
         function orderWhatsapp(urun, fiyat) {
-            window.open("https://wa.me/905314582416?text=" + encodeURIComponent("Merhaba, " + urun + " hakkında bilgi almak istiyorum."), "_blank");
+            var tel = "905314582416";
+            var msg = "Merhaba, *" + urun + "* genç odası takımını beğendim.\n" +
+                "Görüntülenen Set Fiyatı: *" + fiyat + "*\n\n" +
+                "Bu takım için teslimat süresi ve detaylı parça fiyatları hakkında bilgi alabilir miyim?";
+            window.open("https://wa.me/" + tel + "?text=" + encodeURIComponent(msg), "_blank");
         }
     </script>
 </body>
