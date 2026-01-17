@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Premium Yatak Odaları | Güney Mobilya</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* --- TEMEL AYARLAR --- */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #050505;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* HEADER */
+        .nav-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .back-btn {
+            color: #fff;
+            font-size: 1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .page-title {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ANA SWIPER */
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            position: relative;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* AMBİYANS ARKA PLAN */
+        .ambient-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(25px) brightness(0.4);
+            transform: scale(1.2);
+            z-index: 1;
+        }
+
+        /* POSTER GÖRSEL */
+        .poster-wrapper {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 140px;
+            /* Alt panel payı */
+        }
+
+        .main-image {
+            width: 90%;
+            max-height: 55vh;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+
+            /* Keskinleştirme */
+            image-rendering: -webkit-optimize-contrast;
+            filter: contrast(1.1) saturate(1.1);
+        }
+
+        /* --- BİLGİ KARTI --- */
+        .info-card {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 25px 40px 25px;
+            color: #fff;
+            z-index: 10;
+            backdrop-filter: blur(20px);
+            background: rgba(20, 20, 20, 0.85);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px 25px 0 0;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            line-height: 1;
+            margin: 0 0 10px 0;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-tags {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            font-size: 0.65rem;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+
+        .tag-badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* MİNİ GALERİ */
+        .mini-gallery {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            margin-top: 10px;
+            scrollbar-width: none;
+            height: 70px;
+            /* ÖNEMLİ: Mobilde yatay kaydırmayı rahatlatır */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .mini-gallery::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mini-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+            transition: 0.2s;
+            background: #111;
+        }
+
+        .mini-thumb.active-thumb {
+            border-color: #D4AF37;
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* FİYAT VE BUTON */
+        .action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+
+        .price-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.6rem;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .price-val {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #D4AF37;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .wp-btn {
+            background: #fff;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* NAVİGASYON OKLARI */
+        .nav-btn {
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 2rem;
+            z-index: 50;
+            cursor: pointer;
+            padding: 20px;
+        }
+
+        .nav-next {
+            right: -5px;
+        }
+
+        .nav-prev {
+            left: -5px;
+        }
+
+        /* MASAÜSTÜ */
+        @media (min-width: 768px) {
+            .main-image {
+                max-height: 70vh;
+                width: auto;
+                max-width: 60%;
+            }
+
+            .info-card {
+                width: 400px;
+                right: 50px;
+                left: auto;
+                bottom: 50px;
+                border-radius: 30px;
+                background: rgba(0, 0, 0, 0.8);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> MENÜ</a>
+        <div class="page-title">YATAK ODASI</div>
+    </div>
+
+    <div class="swiper-container mySwiper">
+        <div class="swiper-wrapper" id="bedroom-wrapper">
+        </div>
+        <div class="nav-btn nav-next"><i class="fas fa-chevron-right"></i></div>
+        <div class="nav-btn nav-prev"><i class="fas fa-chevron-left"></i></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // ===============================================
+        // 💎 TÜM MODELLER
+        // ===============================================
+        const bedroomModels = [
+            { id: 'alacatı', name: 'ALAÇATI' },
+            { id: 'alanya', name: 'ALANYA' },
+            { id: 'asya', name: 'ASYA' },
+            { id: 'bagdat', name: 'BAĞDAT' },
+            { id: 'balat', name: 'BALAT' },
+            { id: 'bursa', name: 'BURSA' },
+            { id: 'cesme', name: 'ÇEŞME' },
+            { id: 'dicle', name: 'DİCLE' },
+            { id: 'dubaı', name: 'DUBAI' },
+            { id: 'efes', name: 'EFES' },
+            { id: 'foca', name: 'FOÇA' },
+            { id: 'kas', name: 'KAŞ' },
+            { id: 'kasmir', name: 'KAŞMİR' },
+            { id: 'kemer', name: 'KEMER' },
+            { id: 'lara', name: 'LARA' },
+            { id: 'latte', name: 'LATTE' },
+            { id: 'lion', name: 'LION' },
+            { id: 'mia', name: 'MIA' },
+            { id: 'oren', name: 'ÖREN' },
+            { id: 'sahra', name: 'SAHRA' },
+            { id: 'salda', name: 'SALDA' },
+            { id: 'soke', name: 'SÖKE' },
+            { id: 'sultan', name: 'SULTAN' },
+            { id: 'umut', name: 'UMUT' },
+            { id: 'urla', name: 'URLA' },
+            { id: 'vera', name: 'VERA' },
+            { id: 'yemen', name: 'YEMEN' }
+        ];
+
+        const randomTags = ['MDF Gövde', 'Modern Tasarım', 'Led Başlık', 'Geniş İç Hacim', 'Şık Detaylar'];
+
+        // ===============================================
+        // ⚙️ OTOMATİK OLUŞTURUCU
+        // ===============================================
+        const wrapper = document.getElementById('bedroom-wrapper');
+
+        bedroomModels.forEach(item => {
+
+            // Etiketler
+            let tagsHTML = '';
+            for (let k = 0; k < 3; k++) {
+                tagsHTML += `<span class="tag-badge">${randomTags[Math.floor(Math.random() * randomTags.length)]}</span>`;
+            }
+
+            // Mini Galeri
+            let thumbs = '';
+            let maxPhotos = 8;
+            for (let i = 1; i <= maxPhotos; i++) {
+                let imgSrc = `img/yatak-odasi/${item.id}-${i}.jpg`;
+                let activeClass = (i === 1) ? 'active-thumb' : '';
+
+                thumbs += `<img src="${imgSrc}" 
+                               onerror="this.style.display='none'" 
+                               class="mini-thumb ${activeClass}" 
+                               onclick="changeMainImage(this, '${item.id}-main', '${item.id}-bg')">`;
+            }
+
+            // Ana Resim
+            let mainImg = `img/yatak-odasi/${item.id}-1.jpg`;
+
+            let slideHTML = `
+            <div class="swiper-slide">
+                <img src="${mainImg}" onerror="loadNext(this, '${item.id}', 1)" class="ambient-bg" id="${item.id}-bg">
+                
+                <div class="poster-wrapper">
+                    <img src="${mainImg}" onerror="this.style.opacity=0" class="main-image" id="${item.id}-main">
+                </div>
+                
+                <div class="info-card">
+                    <div class="product-tags">
+                        ${tagsHTML}
+                    </div>
+                    <h2 class="product-name">${item.name}</h2>
+                    
+                    <div class="mini-gallery swiper-no-swiping">
+                        ${thumbs}
+                    </div>
+
+                    <div class="action-row">
+                        <div class="price-box">
+                            <span class="price-label">TAKIM FİYATI</span>
+                            <span class="price-val">Fiyat Sorunuz</span>
+                        </div>
+                        <a href="#" onclick="askPrice('${item.name}')" class="wp-btn">
+                            <i class="fab fa-whatsapp"></i> BİLGİ AL
+                        </a>
+                    </div>
+                </div>
+            </div>`;
+
+            wrapper.innerHTML += slideHTML;
+        });
+
+        // ===============================================
+        // 🔄 GÖRSEL AVCISI
+        // ===============================================
+        function loadNext(img, modelId, currentIdx) {
+            if (currentIdx >= 8) {
+                img.src = `https://placehold.co/1080x1920/000/333?text=${modelId}`;
+                return;
+            }
+            let nextIdx = currentIdx + 1;
+            img.onerror = function () { loadNext(img, modelId, nextIdx) };
+
+            let newSrc = `img/yatak-odasi/${modelId}-${nextIdx}.jpg`;
+            img.src = newSrc;
+
+            let mainImg = document.getElementById(`${modelId}-main`);
+            if (mainImg) mainImg.src = newSrc;
+        }
+
+        // ===============================================
+        // 🚀 SWIPER BAŞLAT
+        // ===============================================
+        const swiper = new Swiper(".mySwiper", {
+            direction: "horizontal",
+            speed: 600,
+            effect: "slide",
+            navigation: {
+                nextEl: ".nav-next",
+                prevEl: ".nav-prev",
+            },
+            // Swiper'ın dokunma algısını biraz daha hassaslaştıralım
+            threshold: 10,
+        });
+
+        function changeMainImage(thumb, mainId, bgId) {
+            let mainImg = document.getElementById(mainId);
+            let bgImg = document.getElementById(bgId);
+
+            let allThumbs = thumb.parentElement.querySelectorAll('.mini-thumb');
+            allThumbs.forEach(t => t.classList.remove('active-thumb'));
+            thumb.classList.add('active-thumb');
+
+            mainImg.style.opacity = 0;
+
+            setTimeout(() => {
+                mainImg.src = thumb.src;
+                bgImg.src = thumb.src;
+                mainImg.style.opacity = 1;
+            }, 150);
+        }
+
+        function askPrice(model) {
+            let msg = `Merhaba, *${model}* yatak odası takımı hakkında detaylı bilgi ve fiyat alabilir miyim?`;
+            window.open("https://wa.me/905314582416?text=" + encodeURIComponent(msg), "_blank");
+        }
+    </script>
+</body>
+
+</html>
