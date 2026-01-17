@@ -67,28 +67,16 @@
             height: 100%;
         }
 
-        /* GPU Hızlandırma için will-change ekledik */
         .swiper-slide {
             position: relative;
             overflow: hidden;
-            background: #000;
+            /* ARKA PLAN RESMİ YERİNE CSS GRADIENT KULLANIYORUZ (RAM DOSTU) */
+            background: radial-gradient(circle at center, #2a2a2a 0%, #000000 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             will-change: transform;
-        }
-
-        /* AMBİYANS ARKA PLAN (HAFİFLETİLMİŞ) */
-        .ambient-bg {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Blur miktarını azalttık ki işlemciyi yormasın */
-            filter: blur(15px) brightness(0.4);
-            transform: scale(1.2);
-            z-index: 1;
+            /* Performans artırıcı */
         }
 
         /* POSTER GÖRSEL */
@@ -110,13 +98,13 @@
             max-height: 55vh;
             object-fit: contain;
             border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            /* Animasyonu sadece Opacity yaptık, kasmasın */
+            /* Hafif gölge ile derinlik verelim */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
             transition: opacity 0.3s ease;
 
-            /* BASİT NETLEŞTİRME (SVG YOK) */
+            /* Sadece renkleri canlandır, ağır filtre yok */
             image-rendering: -webkit-optimize-contrast;
-            filter: contrast(1.1) saturate(1.15);
+            filter: contrast(1.05) saturate(1.1);
         }
 
         /* --- BİLGİ KARTI --- */
@@ -128,9 +116,8 @@
             padding: 20px 25px 40px 25px;
             color: #fff;
             z-index: 10;
-            /* Blur efektini azalttık */
-            backdrop-filter: blur(10px);
-            background: rgba(20, 20, 20, 0.9);
+            background: rgba(15, 15, 15, 0.95);
+            /* Blur yerine düz koyu renk (Hızlı) */
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 25px 25px 0 0;
             box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
@@ -172,7 +159,6 @@
             margin-top: 10px;
             scrollbar-width: none;
             height: 70px;
-            /* Mobilde yatay kaydırmayı rahatlatır */
             -webkit-overflow-scrolling: touch;
         }
 
@@ -297,10 +283,10 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // ===============================================
-        // 💎 TÜM MODELLER (Tam Liste - Düzeltildi)
+        // 💎 TÜM MODELLER
         // ===============================================
         const bedroomModels = [
-            { id: 'alacatı', name: 'ALAÇATI' },  // DÜZELDİ
+            { id: 'alacatı', name: 'ALAÇATI' },
             { id: 'alanya', name: 'ALANYA' },
             { id: 'asya', name: 'ASYA' },
             { id: 'bagdat', name: 'BAĞDAT' },
@@ -308,7 +294,7 @@
             { id: 'bursa', name: 'BURSA' },
             { id: 'cesme', name: 'ÇEŞME' },
             { id: 'dicle', name: 'DİCLE' },
-            { id: 'dubaı', name: 'DUBAI' },     // DÜZELDİ
+            { id: 'dubaı', name: 'DUBAI' },
             { id: 'efes', name: 'EFES' },
             { id: 'foca', name: 'FOÇA' },
             { id: 'kas', name: 'KAŞ' },
@@ -346,21 +332,21 @@
                 let imgSrc = `img/yatak-odasi/${item.id}-${i}.jpg`;
                 let activeClass = (i === 1) ? 'active-thumb' : '';
 
+                // loading="lazy" ekledik ki hepsini aynı anda yükleyip telefonu kilitlemesin
                 thumbs += `<img src="${imgSrc}" 
+                               loading="lazy"
                                onerror="this.style.display='none'" 
                                class="mini-thumb ${activeClass}" 
-                               onclick="changeMainImage(this, '${item.id}-main', '${item.id}-bg')">`;
+                               onclick="changeMainImage(this, '${item.id}-main')">`;
             }
 
-            // Ana Resim (Varsayılan olarak 1. resim, yoksa loadNext bulacak)
+            // Ana Resim
             let mainImg = `img/yatak-odasi/${item.id}-1.jpg`;
 
             let slideHTML = `
             <div class="swiper-slide">
-                <img src="${mainImg}" onerror="loadNext(this, '${item.id}', 1)" class="ambient-bg" id="${item.id}-bg">
-                
                 <div class="poster-wrapper">
-                    <img src="${mainImg}" onerror="this.style.opacity=0" class="main-image" id="${item.id}-main">
+                    <img src="${mainImg}" loading="lazy" onerror="loadNext(this, '${item.id}', 1)" class="main-image" id="${item.id}-main">
                 </div>
                 
                 <div class="info-card">
@@ -388,48 +374,48 @@
             wrapper.innerHTML += slideHTML;
         });
 
-        // 🔄 AKILLI GÖRSEL AVCISI
+        // 🔄 GÖRSEL AVCISI
         function loadNext(img, modelId, currentIdx) {
+            // Sonsuz döngüye girmemesi için 8. denemede dur
             if (currentIdx >= 8) {
-                // Hiçbir görsel bulunamazsa placeholder
-                img.src = `https://placehold.co/1080x1920/000/333?text=${modelId}`;
+                // Eğer hiçbir resim yoksa gri placeholder koy
+                img.src = `https://placehold.co/1080x1920/222/555?text=${modelId}`;
                 return;
             }
             let nextIdx = currentIdx + 1;
+
+            // Bir sonraki resmi denerken de hata olursa yine bu fonksiyonu çalıştır
             img.onerror = function () { loadNext(img, modelId, nextIdx) };
 
-            let newSrc = `img/yatak-odasi/${modelId}-${nextIdx}.jpg`;
-            img.src = newSrc;
-
-            let mainImg = document.getElementById(`${modelId}-main`);
-            if (mainImg) mainImg.src = newSrc;
+            // Yeni resmi yükle
+            img.src = `img/yatak-odasi/${modelId}-${nextIdx}.jpg`;
         }
 
         // 🚀 SWIPER BAŞLAT
         const swiper = new Swiper(".mySwiper", {
             direction: "horizontal",
-            speed: 600,
-            effect: "slide", // Performans için 'slide' efekti
+            speed: 500,
+            effect: "slide",
+            // Sanal Slaytlar (Performansın dibi)
+            // Eğer hala kasarsa virtual: true yapacağız ama şimdilik gerek yok.
             navigation: {
                 nextEl: ".nav-next",
                 prevEl: ".nav-prev",
             },
-            threshold: 10, // Dokunma hassasiyeti
+            threshold: 15,
         });
 
-        function changeMainImage(thumb, mainId, bgId) {
+        function changeMainImage(thumb, mainId) {
             let mainImg = document.getElementById(mainId);
-            let bgImg = document.getElementById(bgId);
 
             let allThumbs = thumb.parentElement.querySelectorAll('.mini-thumb');
             allThumbs.forEach(t => t.classList.remove('active-thumb'));
             thumb.classList.add('active-thumb');
 
-            mainImg.style.opacity = 0;
+            mainImg.style.opacity = 0.5;
 
             setTimeout(() => {
                 mainImg.src = thumb.src;
-                bgImg.src = thumb.src;
                 mainImg.style.opacity = 1;
             }, 150);
         }
