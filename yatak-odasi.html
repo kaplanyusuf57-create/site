@@ -67,6 +67,7 @@
             height: 100%;
         }
 
+        /* GPU Hızlandırma için will-change ekledik */
         .swiper-slide {
             position: relative;
             overflow: hidden;
@@ -74,16 +75,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            will-change: transform;
         }
 
-        /* AMBİYANS ARKA PLAN */
+        /* AMBİYANS ARKA PLAN (HAFİFLETİLMİŞ) */
         .ambient-bg {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(25px) brightness(0.4);
+            /* Blur miktarını azalttık ki işlemciyi yormasın */
+            filter: blur(15px) brightness(0.4);
             transform: scale(1.2);
             z-index: 1;
         }
@@ -108,11 +111,12 @@
             object-fit: contain;
             border-radius: 15px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            /* Animasyonu sadece Opacity yaptık, kasmasın */
+            transition: opacity 0.3s ease;
 
-            /* Keskinleştirme */
+            /* BASİT NETLEŞTİRME (SVG YOK) */
             image-rendering: -webkit-optimize-contrast;
-            filter: contrast(1.1) saturate(1.1);
+            filter: contrast(1.1) saturate(1.15);
         }
 
         /* --- BİLGİ KARTI --- */
@@ -124,8 +128,9 @@
             padding: 20px 25px 40px 25px;
             color: #fff;
             z-index: 10;
-            backdrop-filter: blur(20px);
-            background: rgba(20, 20, 20, 0.85);
+            /* Blur efektini azalttık */
+            backdrop-filter: blur(10px);
+            background: rgba(20, 20, 20, 0.9);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 25px 25px 0 0;
             box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
@@ -167,7 +172,7 @@
             margin-top: 10px;
             scrollbar-width: none;
             height: 70px;
-            /* ÖNEMLİ: Mobilde yatay kaydırmayı rahatlatır */
+            /* Mobilde yatay kaydırmayı rahatlatır */
             -webkit-overflow-scrolling: touch;
         }
 
@@ -292,10 +297,10 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // ===============================================
-        // 💎 TÜM MODELLER
+        // 💎 TÜM MODELLER (Tam Liste - Düzeltildi)
         // ===============================================
         const bedroomModels = [
-            { id: 'alacatı', name: 'ALAÇATI' },
+            { id: 'alacatı', name: 'ALAÇATI' },  // DÜZELDİ
             { id: 'alanya', name: 'ALANYA' },
             { id: 'asya', name: 'ASYA' },
             { id: 'bagdat', name: 'BAĞDAT' },
@@ -303,7 +308,7 @@
             { id: 'bursa', name: 'BURSA' },
             { id: 'cesme', name: 'ÇEŞME' },
             { id: 'dicle', name: 'DİCLE' },
-            { id: 'dubaı', name: 'DUBAI' },
+            { id: 'dubaı', name: 'DUBAI' },     // DÜZELDİ
             { id: 'efes', name: 'EFES' },
             { id: 'foca', name: 'FOÇA' },
             { id: 'kas', name: 'KAŞ' },
@@ -326,20 +331,15 @@
 
         const randomTags = ['MDF Gövde', 'Modern Tasarım', 'Led Başlık', 'Geniş İç Hacim', 'Şık Detaylar'];
 
-        // ===============================================
-        // ⚙️ OTOMATİK OLUŞTURUCU
-        // ===============================================
         const wrapper = document.getElementById('bedroom-wrapper');
 
         bedroomModels.forEach(item => {
 
-            // Etiketler
             let tagsHTML = '';
             for (let k = 0; k < 3; k++) {
                 tagsHTML += `<span class="tag-badge">${randomTags[Math.floor(Math.random() * randomTags.length)]}</span>`;
             }
 
-            // Mini Galeri
             let thumbs = '';
             let maxPhotos = 8;
             for (let i = 1; i <= maxPhotos; i++) {
@@ -352,7 +352,7 @@
                                onclick="changeMainImage(this, '${item.id}-main', '${item.id}-bg')">`;
             }
 
-            // Ana Resim
+            // Ana Resim (Varsayılan olarak 1. resim, yoksa loadNext bulacak)
             let mainImg = `img/yatak-odasi/${item.id}-1.jpg`;
 
             let slideHTML = `
@@ -388,11 +388,10 @@
             wrapper.innerHTML += slideHTML;
         });
 
-        // ===============================================
-        // 🔄 GÖRSEL AVCISI
-        // ===============================================
+        // 🔄 AKILLI GÖRSEL AVCISI
         function loadNext(img, modelId, currentIdx) {
             if (currentIdx >= 8) {
+                // Hiçbir görsel bulunamazsa placeholder
                 img.src = `https://placehold.co/1080x1920/000/333?text=${modelId}`;
                 return;
             }
@@ -406,19 +405,16 @@
             if (mainImg) mainImg.src = newSrc;
         }
 
-        // ===============================================
         // 🚀 SWIPER BAŞLAT
-        // ===============================================
         const swiper = new Swiper(".mySwiper", {
             direction: "horizontal",
             speed: 600,
-            effect: "slide",
+            effect: "slide", // Performans için 'slide' efekti
             navigation: {
                 nextEl: ".nav-next",
                 prevEl: ".nav-prev",
             },
-            // Swiper'ın dokunma algısını biraz daha hassaslaştıralım
-            threshold: 10,
+            threshold: 10, // Dokunma hassasiyeti
         });
 
         function changeMainImage(thumb, mainId, bgId) {
