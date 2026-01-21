@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Premium Oturma Grupları | Güney Mobilya</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* --- TEMEL AYARLAR --- */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #050505;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* HEADER */
+        .nav-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .back-btn {
+            color: #fff;
+            font-size: 1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .page-title {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ANA SWIPER */
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* POSTER GÖRSEL (COMING SOON MODU) */
+        .poster-wrapper {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 160px;
+            /* Bilgi kartı için boşluk */
+        }
+
+        .main-image {
+            width: 90%;
+            max-height: 50vh;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            opacity: 0.8;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- BİLGİ KARTI --- */
+        .info-card {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            color: #fff;
+            z-index: 10;
+            background: rgba(15, 15, 15, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px 25px 0 0;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            line-height: 1;
+            margin: 0 0 5px 0;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* PAKET İÇERİĞİ LİSTESİ */
+        .set-content {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #ccc;
+            border-left: 3px solid #D4AF37;
+        }
+
+        .set-content ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .set-content li {
+            margin-bottom: 2px;
+        }
+
+        /* FİYAT VE BUTON */
+        .action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+
+        .price-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-label {
+            font-size: 0.6rem;
+            color: #999;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .price-val {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #D4AF37;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .wp-btn {
+            background: #fff;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* NAVİGASYON OKLARI */
+        .nav-btn {
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 2rem;
+            z-index: 50;
+            cursor: pointer;
+            padding: 20px;
+        }
+
+        .nav-next {
+            right: -5px;
+        }
+
+        .nav-prev {
+            left: -5px;
+        }
+
+        @media (min-width: 768px) {
+            .main-image {
+                max-height: 60vh;
+                width: auto;
+                max-width: 50%;
+            }
+
+            .info-card {
+                width: 400px;
+                right: 50px;
+                left: auto;
+                bottom: 50px;
+                border-radius: 30px;
+                background: rgba(0, 0, 0, 0.9);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-header">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> MENÜ</a>
+        <div class="page-title">OTURMA GRUBU</div>
+    </div>
+
+    <div class="swiper-container mySwiper">
+        <div class="swiper-wrapper" id="sofa-wrapper">
+        </div>
+        <div class="nav-btn nav-next"><i class="fas fa-chevron-right"></i></div>
+        <div class="nav-btn nav-prev"><i class="fas fa-chevron-left"></i></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // ===============================================
+        // 🛋️ KOLTUK MODELLERİ (Fiyatlar ve İsimler)
+        // ===============================================
+        const sofaModels = [
+            { id: 'loft', name: 'LOFT', price: '35.000 ₺' },
+            { id: 'comfort', name: 'COMFORT', price: '36.500 ₺' },
+            { id: 'vintage', name: 'VINTAGE', price: '38.000 ₺' },
+            { id: 'likya', name: 'LİKYA', price: '39.500 ₺' },
+            { id: 'chester', name: 'CHESTER', price: '42.500 ₺' },
+            { id: 'royal', name: 'ROYAL', price: '48.000 ₺' },
+            { id: 'avangard', name: 'AVANGARD', price: '55.000 ₺' }
+        ];
+
+        // Sabit Paket İçeriği
+        const setContentHTML = `
+            <ul>
+                <li>1 Adet 3'lü Koltuk</li>
+                <li>1 Adet 2'li Koltuk</li>
+                <li>1 Adet Berjer</li>
+                <li><strong>+ Orta Sehpa Hediyeli</strong></li>
+            </ul>
+        `;
+
+        const wrapper = document.getElementById('sofa-wrapper');
+
+        sofaModels.forEach(item => {
+            // Şimdilik "Görsel Hazırlanıyor" placeholder kullanıyoruz
+            // İleride resimler gelince burayı `img/oturma-grubu/${item.id}-1.jpg` yapacağız.
+            // Arka plan siyah (111), yazı rengi gold (D4AF37)
+            let imgSrc = `https://placehold.co/1080x1080/111/D4AF37?text=${item.name}+Modeli%0AGorseller+Yakinda`;
+
+            let slideHTML = `
+            <div class="swiper-slide">
+                <div class="poster-wrapper">
+                    <img src="${imgSrc}" class="main-image">
+                </div>
+                
+                <div class="info-card">
+                    <h2 class="product-name">${item.name}</h2>
+                    
+                    <div class="set-content">
+                        ${setContentHTML}
+                    </div>
+
+                    <div class="action-row">
+                        <div class="price-box">
+                            <span class="price-label">SET FİYATI (BAŞLANGIÇ)</span>
+                            <span class="price-val">${item.price}</span>
+                        </div>
+                        <a href="#" onclick="askPrice('${item.name}')" class="wp-btn">
+                            <i class="fab fa-whatsapp"></i> SİPARİŞ VER
+                        </a>
+                    </div>
+                </div>
+            </div>`;
+
+            wrapper.innerHTML += slideHTML;
+        });
+
+        // 🚀 SWIPER BAŞLAT
+        const swiper = new Swiper(".mySwiper", {
+            direction: "horizontal",
+            speed: 600,
+            effect: "slide",
+            navigation: {
+                nextEl: ".nav-next",
+                prevEl: ".nav-prev",
+            },
+        });
+
+        function askPrice(model) {
+            let msg = `Merhaba, *${model}* oturma grubu (3+2+1+Sehpa) paketi için detaylı bilgi almak istiyorum.`;
+            window.open("https://wa.me/905314582416?text=" + encodeURIComponent(msg), "_blank");
+        }
+    </script>
+</body>
+
+</html>
