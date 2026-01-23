@@ -233,6 +233,60 @@
             text-transform: uppercase;
         }
 
+        /* --- YENİ EKLENEN: KURUMSAL BUTON TASARIMI --- */
+        .corp-btn-container {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .corp-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #001540;
+            /* Kurumsal Lacivert */
+            color: white;
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 21, 64, 0.2);
+            border-left: 5px solid #FF6F00;
+            /* Turuncu Çizgi */
+            transition: transform 0.2s;
+        }
+
+        .corp-link:active {
+            transform: scale(0.98);
+        }
+
+        .corp-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .corp-icon {
+            font-size: 1.8rem;
+            color: #FF6F00;
+        }
+
+        .corp-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .corp-main {
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .corp-sub {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 3px;
+        }
+
         @media (min-width: 768px) {
             .banner-wrapper {
                 aspect-ratio: 1920/700;
@@ -330,8 +384,21 @@
                         </a>
                     </div>
 
+                    <div class="corp-btn-container">
+                        <a href="kurumsal.html" class="corp-link">
+                            <div class="corp-left">
+                                <i class="fas fa-hotel corp-icon"></i>
+                                <div class="corp-text">
+                                    <span class="corp-main">KURUMSAL PROJELER</span>
+                                    <span class="corp-sub">Otel, Yurt ve Toplu Alım Çözümleri</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right" style="color:white"></i>
+                        </a>
+                    </div>
+
                     <div
-                        style="text-align:center; margin-top:50px; color:#aaa; font-size:0.8rem; padding-bottom: 20px;">
+                        style="text-align:center; margin-top:30px; color:#aaa; font-size:0.8rem; padding-bottom: 20px;">
                         &copy; 2026 GÜNEY MOBİLYA<br>
                         Siteler / ANKARA
                     </div>

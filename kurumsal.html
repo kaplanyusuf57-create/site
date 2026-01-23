@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Güney Mobilya | Kurumsal Proje Çözümleri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- PREMIUM KURUMSAL AYARLAR --- */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --navy: #001540;
+            --orange: #FF6F00;
+            --white: #ffffff;
+            --light-bg: #F5F7FA;
+            --text-dark: #222;
+            --text-light: #555;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+            background: var(--navy);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-text {
+            color: var(--white);
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            border-left: 4px solid var(--orange);
+            padding-left: 10px;
+        }
+
+        .back-btn {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.8;
+        }
+
+        /* HERO BÖLÜMÜ */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 75vh;
+            background-image: url('img/otel-proje-kapak.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 21, 64, 0.6) 0%, rgba(0, 0, 0, 0.1) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            color: var(--white);
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
+            padding-left: 40px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-btn {
+            background: var(--orange);
+            color: var(--white);
+            padding: 18px 40px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 1px;
+        }
+
+        /* İSTATİSTİK ŞERİDİ */
+        .stats-bar {
+            background: var(--white);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 20;
+            margin-top: -50px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 5px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--navy);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--orange);
+            letter-spacing: 1px;
+        }
+
+        /* KATEGORİLER (DÜZELTİLDİ: TIKLANABİLİR KARTLAR) */
+        .section-header {
+            text-align: center;
+            margin: 80px 0 50px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--navy);
+            text-transform: uppercase;
+            border-bottom: 4px solid var(--orange);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .segments-container {
+            padding: 0 20px 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .segment-card {
+            background: var(--white);
+            border: 1px solid #eee;
+            border-top: 5px solid var(--navy);
+            padding: 40px 30px;
+            transition: 0.3s;
+            cursor: pointer;
+            /* Tıklanabilir el işareti */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .segment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border-top-color: var(--orange);
+        }
+
+        .segment-card:active {
+            transform: scale(0.98);
+        }
+
+        .seg-icon {
+            color: var(--navy);
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .seg-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 5px;
+        }
+
+        .seg-sub {
+            color: var(--orange);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .seg-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 30px 0;
+            flex-grow: 1;
+            pointer-events: none;
+        }
+
+        .seg-list li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            border-bottom: 1px solid #f5f5f5;
+            padding-bottom: 8px;
+        }
+
+        /* Sahte Buton (Görsel Amaçlı) */
+        .fake-btn {
+            text-align: center;
+            width: 100%;
+            background: var(--white);
+            color: var(--navy);
+            border: 2px solid var(--navy);
+            padding: 12px;
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        .segment-card:hover .fake-btn {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        /* TEKNİK DETAYLAR (DÜZELTİLDİ: TAŞMA YOK) */
+        .tech-section {
+            background: var(--navy);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            width: 100%;
+            clear: both;
+            /* Çakışmayı önler */
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 50px auto 0 auto;
+        }
+
+        .tech-item {
+            text-align: left;
+            border-left: 3px solid var(--orange);
+            padding-left: 20px;
+        }
+
+        .tech-head {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--white);
+        }
+
+        .tech-sub {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* FOOTER (DÜZELTİLDİ) */
+        .footer {
+            background: #000d26;
+            color: #888;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.85rem;
+            border-top: 3px solid var(--orange);
+            width: 100%;
+        }
+
+        /* --- GELİŞMİŞ MODAL (POPUP) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 21, 64, 0.9);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+        }
+
+        .modal-box {
+            background: var(--white);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            padding: 25px;
+            position: relative;
+            max-height: 90vh;
+            /* Ekrandan taşmasın */
+            overflow-y: auto;
+            /* İçerik uzunsa kaydır */
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--orange);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* Resimli/İkonlu Seçenekler */
+        .radio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .radio-option input {
+            display: none;
+        }
+
+        .radio-tile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f4f4f4;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .radio-tile i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        .radio-tile span {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #444;
+        }
+
+        .radio-option input:checked+.radio-tile {
+            background: rgba(255, 111, 0, 0.1);
+            border-color: var(--orange);
+        }
+
+        .radio-option input:checked+.radio-tile i,
+        .radio-option input:checked+.radio-tile span {
+            color: var(--orange);
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .input-text:focus {
+            border-color: var(--navy);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #1ebc57;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 60vh;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding: 20px;
+                padding-left: 20px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .nav-header {
+                padding: 0 20px;
+            }
+
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-item {
+                border-left: none;
+                border-bottom: 2px solid var(--orange);
+                padding-bottom: 15px;
+                padding-left: 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-header">
+        <div class="logo-text">GÜNEY KURUMSAL</div>
+        <a href="index.html" class="back-btn"><i class="fas fa-th"></i> Katalog</a>
+    </div>
+
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-subtitle">B2B ÇÖZÜM ORTAĞI</div>
+            <h1 class="hero-title">Sağlamlık,<br>Estetik ve<br>Kârlılık.</h1>
+            <p class="hero-desc">Otel ve Yurt projeleriniz için doğrudan üreticiden tedarik avantajı.</p>
+            <button onclick="openModal('GENEL PROJE')" class="cta-btn">TEKLİF AL <i
+                    class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-item"><span class="stat-num">Fabrika</span><span class="stat-label">Aracı Yok</span></div>
+        <div class="stat-item"><span class="stat-num">2 Yıl</span><span class="stat-label">Kurumsal Garanti</span></div>
+        <div class="stat-item"><span class="stat-num">81 İl</span><span class="stat-label">Lojistik Ağı</span></div>
+    </div>
+
+    <div class="section-header">
+        <div class="section-title">PROJE ÇÖZÜMLERİ</div>
+    </div>
+
+    <div class="segments-container">
+
+        <div class="segment-card" onclick="openModal('YURT & PANSİYON')">
+            <i class="fas fa-user-graduate seg-icon"></i>
+            <div class="seg-title">YURT & PANSİYON</div>
+            <span class="seg-sub">EKONOMİK / DAYANIKLI</span>
+            <ul class="seg-list">
+                <li><strong>Profil:</strong> 1.2mm Güçlendirilmiş Çelik</li>
+                <li><strong>Yatak:</strong> Tam Ortopedik Yay Sistemi</li>
+                <li><strong>Özellik:</strong> Yüksek Ayak (Kolay Temizlik)</li>
+            </ul>
+            <div class="fake-btn">FİYAT LİSTESİ İSTE</div>
+        </div>
+
+        <div class="segment-card" onclick="openModal('OTEL & SUITE')" style="border-top-color: var(--orange);">
+            <i class="fas fa-hotel seg-icon" style="color:var(--orange)"></i>
+            <div class="seg-title">OTEL & SUITE</div>
+            <span class="seg-sub" style="color:var(--navy)">KONFOR / PRESTİJ</span>
+            <ul class="seg-list">
+                <li><strong>Kumaş:</strong> Silinebilir, Leke Tutmaz</li>
+                <li><strong>Yatak:</strong> Pedli Lüks Konfor Serisi</li>
+                <li><strong>Baza:</strong> Havuzlu Sistem (Kaydırmaz)</li>
+            </ul>
+            <div class="fake-btn" style="background:var(--navy); color:white;">ÖZEL TEKLİF AL</div>
+        </div>
+
+        <div class="segment-card" onclick="openModal('ŞANTİYE & LOJMAN')">
+            <i class="fas fa-hard-hat seg-icon"></i>
+            <div class="seg-title">ŞANTİYE & LOJMAN</div>
+            <span class="seg-sub">TOPLU / FONKSİYONEL</span>
+            <ul class="seg-list">
+                <li><strong>Ranza:</strong> Metal Ranza Seçenekleri</li>
+                <li><strong>Sünger:</strong> Yüksek Dansite Gri Sünger</li>
+                <li><strong>Stok:</strong> Anında Teslim Stok Gücü</li>
+            </ul>
+            <div class="fake-btn">STOK DURUMU SOR</div>
+        </div>
+
+    </div>
+
+    <div class="tech-section">
+        <h2 style="text-transform:uppercase; font-weight:800; letter-spacing:1px; margin-bottom:30px;">Teknik Kalite
+            Standartları</h2>
+        <div class="tech-grid">
+            <div class="tech-item">
+                <div class="tech-head">ÇELİK PROFİL</div>
+                <div class="tech-sub">Eğilme ve bükülmeye karşı garantili.</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-head">MAKAS SİSTEMİ</div>
+                <div class="tech-sub">Emniyet kilitli, sessiz mekanizma.</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-head">KUMAŞ TEKNOLOJİSİ</div>
+                <div class="tech-sub">Silinebilir, hava alan döşeme.</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-head">ROBOT SÜPÜRGE</div>
+                <div class="tech-sub">Yüksek ayaklı, altı kolay temizlenir.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p style="margin-bottom:10px; font-weight:700; color:var(--white); font-size:1.2rem;">GÜNEY MOBİLYA</p>
+        Siteler / ANKARA<br>
+        <span style="color:var(--orange)">Kurumsal İletişim:</span> 0531 458 24 16
+    </div>
+
+    <div class="modal-overlay" id="offerModal">
+        <div class="modal-box">
+            <i class="fas fa-times close-modal" onclick="closeModal()"></i>
+
+            <div class="modal-title" id="modalTitle">PROJE DETAYLARI</div>
+
+            <div class="form-group">
+                <label class="form-label">Hangi Ürünlere İhtiyacınız Var?</label>
+                <div class="radio-grid">
+                    <label class="radio-option">
+                        <input type="radio" name="productType" value="SET (Baza+Başlık+Yatak)" checked>
+                        <div class="radio-tile">
+                            <i class="fas fa-layer-group"></i>
+                            <span>HEPSİ (SET)</span>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="productType" value="Sadece Baza & Başlık">
+                        <div class="radio-tile">
+                            <i class="fas fa-vector-square"></i>
+                            <span>BAZA & BAŞLIK</span>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="productType" value="Sadece Yatak">
+                        <div class="radio-tile">
+                            <i class="fas fa-bed"></i>
+                            <span>SADECE YATAK</span>
+                        </div>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="productType" value="Ranza / Diğer">
+                        <div class="radio-tile">
+                            <i class="fas fa-ellipsis-h"></i>
+                            <span>DİĞER</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Tahmini Adet Sayısı?</label>
+                <input type="number" id="qtyInput" class="input-text" placeholder="Örn: 20">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Teslimat Hangi Şehre?</label>
+                <input type="text" id="cityInput" class="input-text" placeholder="Örn: Antalya">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Firma / Otel Adı (Opsiyonel)</label>
+                <input type="text" id="companyInput" class="input-text" placeholder="Firma adınız...">
+            </div>
+
+            <button onclick="submitForm()" class="submit-btn">
+                <i class="fab fa-whatsapp"></i> FİYAT TEKLİFİ AL
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentCategory = "";
+        const modal = document.getElementById('offerModal');
+
+        // Modalı Aç
+        function openModal(category) {
+            currentCategory = category;
+            document.getElementById('modalTitle').innerText = category + " TEKLİFİ";
+            modal.style.display = 'flex';
+            // Hafif gecikmeyle opacity ekle ki animasyon çalışsın
+            setTimeout(() => { modal.classList.add('active'); }, 10);
+        }
+
+        // Modalı Kapat
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+
+        // Dışarı tıklayınca kapat
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Formu Gönder (WhatsApp)
+        function submitForm() {
+            const productType = document.querySelector('input[name="productType"]:checked').value;
+            const qty = document.getElementById('qtyInput').value;
+            const city = document.getElementById('cityInput').value;
+            const company = document.getElementById('companyInput').value;
+
+            if (!qty || !city) {
+                alert("Lütfen adet ve şehir bilgisini giriniz.");
+                return;
+            }
+
+            // Mesajı Oluştur
+            let msg = `Merhaba Güney Mobilya, kurumsal proje fiyatı almak istiyorum.\n\n`;
+            msg += `🏢 *Proje:* ${currentCategory}\n`;
+            msg += `🛏️ *İhtiyaç:* ${productType}\n`;
+            msg += `🔢 *Adet:* ${qty}\n`;
+            msg += `📍 *Şehir:* ${city}\n`;
+            if (company) msg += `💼 *Firma:* ${company}\n`;
+            msg += `\nStok durumu ve en uygun fiyatı öğrenebilir miyim?`;
+
+            // WhatsApp'a Yönlendir
+            window.open("https://wa.me/905314582416?text=" + encodeURIComponent(msg), "_blank");
+            closeModal();
+        }
+    </script>
+
+</body>
+
+</html>

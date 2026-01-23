@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Güney Mobilya - 2026 Katalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- BASKI AYARLARI (A4) --- */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #002060;
+            /* Kurumsal Lacivert */
+            --orange: #FF6F00;
+            /* Vurgu Turuncu */
+            --white: #ffffff;
+            --grey: #f4f4f4;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #ccc;
+        }
+
+        .sheet {
+            width: 210mm;
+            height: 296mm;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- KAPAK TASARIMI (DÜZELTİLDİ) --- */
+        .cover-page {
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10mm;
+            /* Kenar boşluğu */
+        }
+
+        /* Logo */
+        .cover-logo {
+            width: 70%;
+            max-width: 180mm;
+            margin-bottom: 10mm;
+            /* Altındaki yazıyla mesafe */
+        }
+
+        /* Başlıklar */
+        .cover-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 5mm;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .cover-subtitle {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            color: var(--orange);
+            font-weight: 600;
+            text-transform: uppercase;
+            border-top: 2px solid var(--orange);
+            border-bottom: 2px solid var(--orange);
+            padding: 5mm 0;
+            width: 80%;
+            margin-bottom: 15mm;
+        }
+
+        /* 2026 YAZISI (ARTIK ÜST ÜSTE BİNMEZ - AKIŞA ALINDI) */
+        .cover-year {
+            font-size: 6rem;
+            font-weight: 800;
+            color: var(--white);
+            opacity: 0.2;
+            /* Hafif şeffaf */
+            letter-spacing: 5px;
+            margin-top: 10mm;
+            /* Üstten boşluk */
+        }
+
+        .web-url {
+            position: absolute;
+            bottom: 15mm;
+            font-size: 1rem;
+            color: var(--white);
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        /* --- İÇ SAYFALAR --- */
+        .page-header {
+            height: 20mm;
+            background: var(--navy);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15mm;
+            color: var(--white);
+            border-bottom: 4px solid var(--orange);
+        }
+
+        .ph-logo {
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 1.2rem;
+        }
+
+        .ph-cat {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--orange);
+        }
+
+        /* ÜRÜN KARTI */
+        .product-card {
+            height: 138mm;
+            padding: 10mm 15mm;
+            border-bottom: 1px dashed #ccc;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:last-child {
+            border-bottom: none;
+        }
+
+        .pc-top {
+            display: flex;
+            gap: 20px;
+            height: 60%;
+        }
+
+        .pc-img {
+            width: 55%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            background: #eee;
+            border: 1px solid #ddd;
+        }
+
+        .pc-info {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pc-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--navy);
+            margin-bottom: 10px;
+            border-left: 5px solid var(--orange);
+            padding-left: 10px;
+        }
+
+        .pc-desc {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        /* FİYAT TABLOSU */
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: auto;
+            font-size: 0.85rem;
+        }
+
+        .price-table th {
+            background: var(--navy);
+            color: var(--white);
+            padding: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.75rem;
+            border: 1px solid var(--navy);
+        }
+
+        .price-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .price-table tr:nth-child(even) {
+            background: var(--grey);
+        }
+
+        .premium-text {
+            color: var(--orange);
+            font-weight: 800;
+        }
+
+        /* BAŞLIK SAYFASI */
+        .headboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10mm;
+            padding: 15mm;
+        }
+
+        .hb-item {
+            text-align: center;
+        }
+
+        .hb-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 2px solid #eee;
+        }
+
+        .hb-name {
+            margin-top: 8px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--navy);
+        }
+
+        /* BUTON */
+        .print-btn-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .btn {
+            background: var(--navy);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--orange);
+        }
+
+        .btn:hover {
+            background: #003380;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="print-btn-container no-print">
+        <button class="btn" onclick="window.print()">🖨️ PDF KAYDET</button>
+    </div>
+
+    <div id="catalog-container"></div>
+
+    <script>
+        // --- VERİLER ---
+        const sizes = ["90x190", "100x200", "120x200", "150x200", "160x200"];
+
+        const sets = [
+            { img: "img/duz_baza.jpg", name: "Düz Baza Seti", desc: "Sade, sandıklı ve dayanıklı çelik profil baza seti.", prices: [9750, 11000, 12000, 14000, 15000] },
+            { img: "img/kapitone_luks.jpg", name: "Kapitone Lüks", desc: "Premium kapitone işçilik, lüks kumaş, silinebilir yüzey.", prices: [11000, 12000, 14000, 15500, 16000] },
+            { img: "img/kare_kapitone.jpg", name: "Kare Kapitone", desc: "Modern kare dikişli, estetik ve sağlam yapı.", prices: [11000, 12000, 14000, 15500, 16000] },
+            { img: "img/havuzlu_bubble.jpg", name: "Havuzlu Bubble", desc: "Yatak kaymasını önleyen özel havuzlu sistem.", prices: [15000, 16500, 18500, 23000, 23500] },
+            { img: "img/havuzlu_chester.jpg", name: "Havuzlu Chester", desc: "Klasik Chester şıklığı ve havuzlu baza teknolojisi.", prices: [15000, 16500, 18500, 23000, 23500] }
+        ];
+
+        const beds = [
+            { img: "img/yatak_tavsan1.jpg", name: "Tavşan Tüyü Pedsiz", desc: "Özel dokulu kumaş, dengeli konfor sistemi.", pre: [5000, 5250, 6500, 7400, 8000], eco: [4100, 4200, 5000, 5500, 6000] },
+            { img: "img/yatak_tavsan2.jpg", name: "Tavşan Tüyü Pedli", desc: "Ekstra yumuşak ped katmanı ile bulut konforu.", pre: [5490, 5600, 7000, 8500, 9000], eco: [4400, 4500, 5400, 6000, 6500] },
+            { img: "img/yatak_afrika.jpg", name: "Afrika Lüks", desc: "Çocuk gelişimi için ideal sertlik (Ecem Serisi).", pre: [3500, 3650, 4500, 5000, 5500], eco: [2800, 2900, 3750, 4250, 4250] },
+            { img: "img/yatak_asya.jpg", name: "Asya Lüks", desc: "Tam ortopedik destek, düz yapı (Tutku Serisi).", pre: [4050, 4250, 5050, 6000, 6000], eco: [3200, 3300, 4000, 4500, 4500] },
+            { img: "img/yatak_avrupa.jpg", name: "Avrupa Jumbo", desc: "Kalın pedli üst yüzey, otel konforu.", pre: [4500, 4700, 5500, 6500, 7000], eco: [4000, 4100, 4600, 5100, 5600] },
+            { img: "img/yatak_antartika.jpg", name: "Antartika Pedli", desc: "Serinletici (Cooler) kumaş teknolojisi.", pre: [4750, 4950, 5750, 6750, 7250], eco: [4250, 4350, 4850, 5350, 5850] }
+        ];
+
+        const headboards = ["SAFIR_GNY_01", "KULAKLI_SAFIR_GNY_02", "SOLEN_GNY_03", "KING_GNY_04", "INCI_GNY_05", "MODERN_KULAK_GNY_06", "TREND_GNY_07", "AVANGART_GNY_08", "PIRLANTA_GNY_09", "BOHEM_GNY_10", "KUKA_GNY_11", "KUVARS_GNY_12", "KUP_GNY_13", "TUGLA_GNY_14", "MERIDYEN_GNY_15", "PAPATYA_GNY_16"];
+
+        const container = document.getElementById('catalog-container');
+
+        function fmt(p) { return p.toLocaleString('tr-TR') + ' ₺'; }
+
+        // --- 1. KAPAK SAYFASI ---
+        function createCover() {
+            container.innerHTML += `
+            <div class="sheet cover-page">
+                <img src="img/logo.png" class="cover-logo" alt="Güney Mobilya">
+                <div class="cover-title">KATALOG</div>
+                <div class="cover-subtitle">BAZA & YATAK & BAŞLIK</div>
+                <div class="cover-year">2026</div>
+                <div class="web-url">www.guneymobilya.com</div>
+            </div>`;
+        }
+
+        // --- 2. SETLER (BAZA & BAŞLIK 2'Lİ SET) ---
+        function createSets() {
+            for (let i = 0; i < sets.length; i += 2) {
+                let pageHTML = `
+                <div class="sheet">
+                    <div class="page-header">
+                        <span class="ph-logo">GÜNEY MOBİLYA</span>
+                        <span class="ph-cat">BAZA & BAŞLIK 2'Lİ SET</span> </div>`;
+                pageHTML += createProductHTML(sets[i]);
+                if (sets[i + 1]) pageHTML += createProductHTML(sets[i + 1]);
+                pageHTML += `</div>`;
+                container.innerHTML += pageHTML;
+            }
+        }
+
+        function createProductHTML(item) {
+            let tableHTML = `<table class="price-table">
+                <tr>
+                    <th>ÖLÇÜ</th>
+                    ${sizes.map(s => `<th>${s}</th>`).join('')}
+                </tr>
+                <tr>
+                    <td style="color:var(--navy); font-weight:800;">FİYAT</td>
+                    ${item.prices.map(p => `<td>${fmt(p)}</td>`).join('')}
+                </tr>
+            </table>`;
+
+            return `
+            <div class="product-card">
+                <div class="pc-top">
+                    <img src="${item.img}" class="pc-img">
+                    <div class="pc-info">
+                        <div class="pc-title">${item.name}</div>
+                        <div class="pc-desc">${item.desc}</div>
+                    </div>
+                </div>
+                ${tableHTML}
+            </div>`;
+        }
+
+        // --- 3. YATAKLAR ---
+        function createBeds() {
+            for (let i = 0; i < beds.length; i += 2) {
+                let pageHTML = `
+                <div class="sheet">
+                    <div class="page-header">
+                        <span class="ph-logo">GÜNEY MOBİLYA</span>
+                        <span class="ph-cat">YATAK KOLEKSİYONU</span>
+                    </div>`;
+                pageHTML += createBedHTML(beds[i]);
+                if (beds[i + 1]) pageHTML += createBedHTML(beds[i + 1]);
+                pageHTML += `</div>`;
+                container.innerHTML += pageHTML;
+            }
+        }
+
+        function createBedHTML(item) {
+            let tableHTML = `<table class="price-table">
+                <tr>
+                    <th>TİP / ÖLÇÜ</th>
+                    ${sizes.map(s => `<th>${s}</th>`).join('')}
+                </tr>
+                <tr>
+                    <td class="premium-text">PREMIUM</td>
+                    ${item.pre.map(p => `<td class="premium-text">${fmt(p)}</td>`).join('')}
+                </tr>
+                <tr>
+                    <td style="color:#666;">EKONOMİK</td>
+                    ${item.eco.map(p => `<td>${fmt(p)}</td>`).join('')}
+                </tr>
+            </table>`;
+
+            return `
+            <div class="product-card">
+                <div class="pc-top">
+                    <img src="${item.img}" class="pc-img">
+                    <div class="pc-info">
+                        <div class="pc-title">${item.name}</div>
+                        <div class="pc-desc">${item.desc}</div>
+                    </div>
+                </div>
+                ${tableHTML}
+            </div>`;
+        }
+
+        // --- 4. BAŞLIKLAR ---
+        function createHeadboards() {
+            const itemsPerPage = 12;
+            for (let i = 0; i < headboards.length; i += itemsPerPage) {
+                let pageContent = headboards.slice(i, i + itemsPerPage);
+                let gridHTML = `<div class="headboard-grid">`;
+                pageContent.forEach(h => {
+                    let name = h.replace(/_/g, " ").replace("GNY", "").trim();
+                    gridHTML += `
+                    <div class="hb-item">
+                        <img src="img/${h}.jpeg" class="hb-img">
+                        <div class="hb-name">${name}</div>
+                    </div>`;
+                });
+                gridHTML += `</div>`;
+
+                container.innerHTML += `
+                <div class="sheet">
+                    <div class="page-header">
+                        <span class="ph-logo">GÜNEY MOBİLYA</span>
+                        <span class="ph-cat">BAŞLIK MODELLERİ</span>
+                    </div>
+                    ${gridHTML}
+                    <div style="position:absolute; bottom:10mm; width:100%; text-align:center; font-size:0.8rem; color:#666;">
+                        * Başlık modellerinde fiyatlar standarttır. Lütfen mağazadan bilgi alınız.
+                    </div>
+                </div>`;
+            }
+        }
+
+        createCover();
+        createSets();
+        createBeds();
+        createHeadboards();
+
+    </script>
+</body>
+
+</html>
