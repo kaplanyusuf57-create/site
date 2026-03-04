@@ -283,9 +283,7 @@
             font-size: 1.3rem;
         }
 
-        /* --- YENİ EKLENEN: KAYDIRMA İPUÇLARI --- */
-
-        /* 1. Navigasyon Okları (Sağ/Sol) */
+        /* KAYDIRMA İPUÇLARI */
         .swiper-button-next,
         .swiper-button-prev {
             color: var(--gold) !important;
@@ -302,7 +300,6 @@
             font-weight: bold;
         }
 
-        /* 2. Animasyonlu El İpucu */
         .swipe-instruction {
             position: fixed;
             top: 50%;
@@ -310,7 +307,6 @@
             transform: translate(-50%, -50%);
             z-index: 9999;
             pointer-events: none;
-            /* Tıklamayı engellemesin */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -319,8 +315,6 @@
             padding: 20px;
             border-radius: 20px;
             color: #fff;
-
-            /* Animasyon: Görün -> Kaydır -> Yok Ol */
             animation: fadeOutHint 3.5s forwards;
         }
 
@@ -369,7 +363,6 @@
             }
         }
 
-
         /* --- MASAÜSTÜ (PC) İÇİN HİBRİT AYAR --- */
         @media (min-width: 768px) {
             .swiper-catalog {
@@ -412,7 +405,6 @@
                 transform: translateX(-50%);
             }
 
-            /* PC'de el animasyonuna gerek yok */
             .swipe-instruction {
                 display: none;
             }
@@ -446,40 +438,61 @@
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/duz_baza.jpg"></div>
                 <div class="p-info-area">
-                    <div class="p-title">Düz Baza Seti</div>
-                    <div class="p-desc">Sade, sandıklı ve kullanışlı baza seti.</div>
+                    <div class="p-title">Atlas Baza Seti</div>
+                    <div class="p-desc">Sade tasarımıyla yatak odanıza ferahlık katan Atlas Baza Seti, beklentilerinizi
+                        aşan bir sağlamlık sunar. Güçlendirilmiş profil iskeleti sayesinde uzun yıllar ilk günkü formunu
+                        korur. Geniş iç hacmi hayatınızı kolaylaştırırken, yüksek ayak yapısı ile robot süpürge
+                        kullanımına tam uyumludur.</div>
                     <div id="list-duz-baza"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/kapitone_luks.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Kapitone Lüks</div>
-                    <div class="p-desc">Premium kapitone işçilikli set.</div>
+                    <div class="p-desc">Premium işçiliğin göz alıcı şıklığıyla tanışın. Yatak odanıza modern bir zarafet
+                        katarken, ergonomik amortisör sistemiyle eşsiz bir kullanım kolaylığı sunar. Ekstra
+                        güçlendirilmiş çelik konstrüksiyonu uzun ömürlü kullanım sağlarken, yüksek ayakları sayesinde
+                        robot süpürgenizin rahatça temizlik yapmasına olanak tanır.</div>
                     <div id="list-kapitone-luks"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/kare_kapitone.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Kare Kapitone</div>
-                    <div class="p-desc">Modern kare dikişli set.</div>
+                    <div class="p-desc">Modern geometrik çizgileri ve kusursuz el işçiliğini bir araya getiren estetik
+                        harikası. Kusursuz şıklığının yanı sıra açılıp kapanırken sağladığı hafiflik ve konforla günlük
+                        hayatınızı kolaylaştırır. Dayanıklı iç yapısı yıllara meydan okurken, robot süpürgelere uygun
+                        yüksek ayak tasarımıyla temizliği dert olmaktan çıkarır.</div>
                     <div id="list-kare-kapitone"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/havuzlu_bubble.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Havuzlu Bubble</div>
-                    <div class="p-desc">Havuzlu sistem yatak kaymasını önler.</div>
+                    <div class="p-desc">Koleksiyonumuzun en iddialı ve tartışmasız en premium parçası! Yatağın kaymasını
+                        kesin olarak önleyen özel havuz sistemi ve fütüristik bubble tasarımıyla yatak odanızı lüks bir
+                        suit odaya çevirir. Kelimenin tam anlamıyla "ömürlük" bir kullanım sunan bu modelimizi zevkinize
+                        göre ister şık yüksek ayaklarıyla, isterseniz yere sıfır ayaksız formda kullanabilirsiniz.
+                        Ayaklı kullanım tercih edildiğinde robot süpürgelerle kusursuz uyum içindedir.</div>
                     <div id="list-havuzlu-bubble"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/havuzlu_chester.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Havuzlu Chester</div>
-                    <div class="p-desc">Klasik chester ve havuzlu baza uyumu.</div>
+                    <div class="p-desc">Klasik Chester asaletinin havuzlu baza inovasyonuyla harmanlandığı, premium
+                        kalitenin zirve noktası! İhtişamlı görüntüsünün ardında, nesilden nesile aktarabileceğiniz
+                        "ömürlük" bir dayanıklılık yatar. Havuzlu yapısı yataktaki hareketliliği engeller. Tercihinize
+                        bağlı olarak ihtişamlı ayaklarıyla yükseltebilir veya tamamen yere oturan ayaksız konseptte
+                        kullanabilirsiniz. Ayaklı kurulumda robot süpürge geçişine tam imkan sağlar.</div>
                     <div id="list-havuzlu-chester"></div>
                 </div>
             </div>
@@ -488,47 +501,72 @@
                 <div class="p-image-area"><img src="img/yatak_tavsan1.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Tavşan Tüyü Pedsiz</div>
-                    <div class="p-desc">Dengeli konfor, özel dokulu.</div>
+                    <div class="p-desc">Yüzeyde düz bir görünüm sevenler için özel tasarım! Standart yataklardan çok
+                        daha kalın ve dolgun bir yapıya sahiptir. Konforu zirveye taşıyan özel ped katmanı, yatağın iç
+                        kısmına ustalıkla gizlenmiştir. Birbirinden bağımsız çalışan Pocket (Paket) Yay sistemi ve tam
+                        ortopedik yapısı sayesinde omurganıza kusursuz destek verir, eşlerin dönüş hareketlerini
+                        birbirine hissettirmez.</div>
                     <div id="list-tavsan-pedsiz"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/yatak_tavsan2.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Tavşan Tüyü Pedli</div>
-                    <div class="p-desc">Ekstra yumuşak ped ile yüksek konfor.</div>
+                    <div class="p-desc">Üst yüzeyindeki belirgin ped katmanı sayesinde çarşaf kullanımını son derece
+                        kolaylaştıran, pratik ve lüks bir deneyim. Diğer modellerimize kıyasla çok daha yumuşak ve esnek
+                        bir sünger katmanına sahiptir. Tam ortopedik Pocket (Paket) Yay sistemi ile donatılan bu ürün,
+                        vücudunuzun tüm boşluklarını doldurarak kesintisiz bir uyku sunar.</div>
                     <div id="list-tavsan-pedli"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/yatak_afrika.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Afrika Lüks</div>
-                    <div class="p-desc">Çocuk gelişim serisi (Ecem).</div>
+                    <div class="p-desc">Özellikle çocuk ve genç gelişimi için ortopedistler tarafından da önerilen,
+                        sağlıklı ve sert yüzeyli uzman yatağımız. Dünyaca ünlü İşbir marka sünger kalitesi ve yıllara
+                        meydan okuyan klasik Bonel Yay sistemiyle üretilmiştir. Gelişim çağındaki bireylerin omurga
+                        sağlığını koruyan sağlam ve dirençli bir yapıya sahiptir.</div>
                     <div id="list-afrika-luks"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/yatak_asya.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Asya Lüks</div>
-                    <div class="p-desc">Düz yapı, tam destek (Tutku).</div>
+                    <div class="p-desc">Afrika modelimizin sağlıklı çocuk gelişim felsefesini ve Bonel Yay
+                        dayanıklılığını, daha yumuşak bir yatış deneyimi arayanlar için yeniden yorumladık. Üst düzey
+                        İşbir marka sünger katmanının daha yumuşak formda kullanıldığı bu model, sağlıklı gelişimi
+                        maksimum konforla buluşturur.</div>
                     <div id="list-asya-luks"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/yatak_avrupa.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Avrupa Jumbo</div>
-                    <div class="p-desc">Kalın pedli üst yüzey.</div>
+                    <div class="p-desc">Gücünü ekstra dayanıklı Herkül Yay sisteminden alan, çok yüksek ağırlıkları dahi
+                        yıllarca hiçbir bozulma ve çökme yaşamadan taşıyabilen devasa bir sağlamlık abidesi. Bu sert ve
+                        dayanıklı yayın üzeri, size bulutların üzerinde hissettirecek ekstra yumuşak bir ped tabakasıyla
+                        kaplanmıştır. Hem sarsılmaz bir güç hem de kusursuz bir yumuşaklık arayanlar için idealdir.
+                    </div>
                     <div id="list-avrupa-jumbo"></div>
                 </div>
             </div>
+
             <div class="swiper-slide">
                 <div class="p-image-area"><img src="img/yatak_antartika.jpg"></div>
                 <div class="p-info-area">
                     <div class="p-title">Antartika Pedli</div>
-                    <div class="p-desc">Serinletici özel kumaş.</div>
+                    <div class="p-desc">Avrupa Jumbo'nun yüksek ağırlık taşıma kapasitesini ve yenilmez Herkül Yay
+                        sistemini baz alan, sıcak yaz aylarına özel mucizevi yatağımız. Ekstra yumuşak konfor pedinin
+                        üzerinde kullanılan özel serinletici kumaş teknolojisi, terlemeyi minimize ederek en sıcak
+                        gecelerde bile ferah ve dinlendirici bir uyku vadeder.</div>
                     <div id="list-antartika-pedli"></div>
                 </div>
             </div>
@@ -554,20 +592,21 @@
     <script>
         // --- VERİ TABANI ---
         const sets = [
-            { id: "list-duz-baza", name: "Düz Baza Seti", prices: [9750, 11000, 12000, 14000, 15000] },
-            { id: "list-kapitone-luks", name: "Kapitone Lüks", prices: [11000, 12000, 14000, 15500, 16000] },
-            { id: "list-kare-kapitone", name: "Kare Kapitone", prices: [11000, 12000, 14000, 15500, 16000] },
-            { id: "list-havuzlu-bubble", name: "Havuzlu Bubble", prices: [15000, 16500, 18500, 23000, 23500] },
-            { id: "list-havuzlu-chester", name: "Havuzlu Chester", prices: [15000, 16500, 18500, 23000, 23500] }
+            // İsim 'Atlas' olarak güncellendi, ID list-duz-baza olarak korundu ki kod bozulmasın
+            { id: "list-duz-baza", name: "Atlas Baza Seti", prices: [11200, 12650, 13800, 16100, 17250] },
+            { id: "list-kapitone-luks", name: "Kapitone Lüks", prices: [12650, 13800, 16100, 17850, 18400] },
+            { id: "list-kare-kapitone", name: "Kare Kapitone", prices: [12650, 13800, 16100, 17850, 18400] },
+            { id: "list-havuzlu-bubble", name: "Havuzlu Bubble", prices: [17250, 19000, 21300, 26450, 27050] },
+            { id: "list-havuzlu-chester", name: "Havuzlu Chester", prices: [17250, 19000, 21300, 26450, 27050] }
         ];
 
         const beds = [
-            { id: "list-tavsan-pedsiz", name: "Tavşan Tüyü Pedsiz", pre: [5000, 5250, 6500, 7400, 8000], eco: [4100, 4200, 5000, 5500, 6000] },
-            { id: "list-tavsan-pedli", name: "Tavşan Tüyü Pedli", pre: [5490, 5600, 7000, 8500, 9000], eco: [4400, 4500, 5400, 6000, 6500] },
-            { id: "list-afrika-luks", name: "Afrika Lüks", pre: [3500, 3650, 4500, 5000, 5500], eco: [2800, 2900, 3750, 4250, 4250] },
-            { id: "list-asya-luks", name: "Asya Lüks", pre: [4050, 4250, 5050, 6000, 6000], eco: [3200, 3300, 4000, 4500, 4500] },
-            { id: "list-avrupa-jumbo", name: "Avrupa Jumbo", pre: [4500, 4700, 5500, 6500, 7000], eco: [4000, 4100, 4600, 5100, 5600] },
-            { id: "list-antartika-pedli", name: "Antartika Pedli", pre: [4750, 4950, 5750, 6750, 7250], eco: [4250, 4350, 4850, 5350, 5850] }
+            { id: "list-tavsan-pedsiz", name: "Tavşan Tüyü Pedsiz", pre: [5750, 6050, 7500, 8500, 9200], eco: [4700, 4850, 5750, 6350, 6900] },
+            { id: "list-tavsan-pedli", name: "Tavşan Tüyü Pedli", pre: [6300, 6450, 8050, 9800, 10350], eco: [5050, 5200, 6200, 6900, 7500] },
+            { id: "list-afrika-luks", name: "Afrika Lüks", pre: [4050, 4200, 5200, 5750, 6350], eco: [3200, 3350, 4300, 4900, 4900] },
+            { id: "list-asya-luks", name: "Asya Lüks", pre: [4650, 4900, 5800, 6900, 6900], eco: [3700, 3800, 4600, 5200, 5200] },
+            { id: "list-avrupa-jumbo", name: "Avrupa Jumbo", pre: [5200, 5400, 6350, 7500, 8050], eco: [4600, 4700, 5300, 5850, 6450] },
+            { id: "list-antartika-pedli", name: "Antartika Pedli", pre: [5450, 5700, 6600, 7750, 8350], eco: [4900, 5000, 5600, 6150, 6750] }
         ];
 
         const sizes = ["90x190", "100x200", "120x200", "150x200", "160x200"];
